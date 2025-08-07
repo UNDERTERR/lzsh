@@ -8,6 +8,7 @@ lib
 *.ttf
 .vscode
 .idea
+.lock
 dist
 mock
 public
