@@ -14,13 +14,7 @@ import { RouteRecordRaw } from 'vue-router';
  * }
  */
 
-/**
- * 定义动态路由
- * 前端添加路由，请在顶级节点的 `children 数组` 里添加
- * @description 未开启 isRequestRoutes 为 true 时使用（前端控制路由），开启时第一个顶级 children 的路由将被替换成接口请求回来的路由数据
- * @description 各字段请查看 `/@/views/system/menu/component/addMenu.vue 下的 ruleForm`
- * @returns 返回路由菜单数据
- */
+
 export const staticRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',
@@ -75,6 +69,13 @@ export const notFoundAndNoPower = [
     },
   },
 ];
+/**
+ * 定义动态路由
+ * 前端添加路由，请在顶级节点的 `children 数组` 里添加
+ * @description 未开启 isRequestRoutes 为 true 时使用（前端控制路由），开启时第一个顶级 children 的路由将被替换成接口请求回来的路由数据
+ * @description 各字段请查看 `/@/views/system/menu/component/addMenu.vue 下的 ruleForm`
+ * @returns 返回路由菜单数据
+ */
 export const dynamicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -194,6 +195,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           },
         ],
       },
+      {
+        path: '/car',
+        name: 'car',
+        component: () => import('/@/layout/routerView/parent.vue'), // 父级容器组件
+        redirect: '/car/enexDetails',
+        meta: {
+          title: 'message.router.car',     // 可以在语言包中配置为“车辆管理”或类似
+          isLink: '',
+          isHide: false,
+          isKeepAlive: true,
+          isAffix: false,
+          isIframe: false,
+          roles: ['admin'],
+          icon: 'ele-Cherry',
+        },
+        children: [
+          {
+            path: '/car/enexDetails',
+            name: 'carEnexDetails',
+            component: () => import('/@/views/project/car/enexDetails/index.vue'),
+            meta: {
+              title: 'message.router.carEnexDetails', // 对应“车辆进出场明细”
+              isLink: '',
+              isHide: false,
+              isKeepAlive: true,
+              isAffix: false,
+              isIframe: false,
+              roles: ['admin'],
+              icon: 'ele-DocumentAdd',
+            },
+          }
+        ]
+      }
 
     ]
   }

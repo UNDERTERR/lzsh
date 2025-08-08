@@ -9,6 +9,8 @@ export default {
 		systemDept: '部门管理',
 		systemDic: '字典管理',
 		limits: '权限管理',
+    car:'车辆管理',
+    carEnexDetails:'车辆进出场明细',
 		limitsFrontEnd: '前端控制',
 		limitsFrontEndPage: '页面权限',
 		limitsFrontEndBtn: '按钮权限',
