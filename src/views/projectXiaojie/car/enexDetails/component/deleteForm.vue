@@ -10,23 +10,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineProps, defineEmits } from 'vue';
+import { ref, watch, defineProps, defineEmits, defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
+import { useCarApi } from '/@/api/projectXiaojie/car/index';
 
+defineComponent({ name: 'deleteForm' })
 // props
 const props = defineProps<{
-  modelValue: boolean;
+  show: boolean;
   row: any;
 }>();
 
 // emit
-const emit = defineEmits(['update:modelValue', 'deleted']);
+const emit = defineEmits(['update:show', 'deleted']);
 
 // 弹窗可见状态
-const visible = ref(props.modelValue);
+const visible = ref(props.show);
 const loading = ref(false);
 
-watch(() => props.modelValue, (val) => {
+watch(() => props.show, (val) => {
   visible.value = val;
 });
 
@@ -37,7 +39,7 @@ const handleClose = (done: Function) => {
 
 // 点击取消
 const handleCancel = () => {
-  emit('update:modelValue', false);
+  emit('update:show', false);
 }
 
 // 删除操作
@@ -47,11 +49,11 @@ const handleConfirm = async () => {
     /**
      * 这里添加删除逻辑
      */
-
+    const result =await useCarApi().deleteCarDetail(props.row.billNo)
     ElMessage.success('删除成功');
 
     emit('deleted', props.row);        // 通知父组件删除成功
-    emit('update:modelValue', false);  // 关闭弹窗
+    emit('update:show', false);  // 关闭弹窗
   } catch (error) {
     ElMessage.error('删除失败，请稍后重试');
   } finally {

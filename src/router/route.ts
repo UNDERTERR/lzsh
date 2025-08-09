@@ -195,6 +195,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           },
         ],
       },
+      /**
+       * 车辆进出场明细_xiaojie
+       */
       {
         path: '/car',
         name: 'car',
@@ -214,7 +217,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           {
             path: '/car/enexDetails',
             name: 'carEnexDetails',
-            component: () => import('/@/views/project/car/enexDetails/index.vue'),
+            component: () => import('/@/views/projectXiaojie/car/enexDetails/index.vue'),
             meta: {
               title: 'message.router.carEnexDetails', // 对应“车辆进出场明细”
               isLink: '',
