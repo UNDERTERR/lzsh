@@ -1,4 +1,4 @@
-<template>
+·<template>
 	<div class="el-menu-horizontal-warp">
 		<el-scrollbar @wheel.native.prevent="onElMenuHorizontalScroll" ref="elMenuHorizontalScrollRef">
 			<el-menu router :default-active="defaultActive" :ellipsis="false" background-color="transparent" mode="horizontal">
