@@ -11,6 +11,7 @@ import 'element-plus/dist/index.css';
 import '/@/theme/index.scss';
 import mitt from 'mitt';
 import VueGridLayout from 'vue-grid-layout';
+import 'font-awesome/css/font-awesome.min.css';
 
 const app = createApp(App);
 
