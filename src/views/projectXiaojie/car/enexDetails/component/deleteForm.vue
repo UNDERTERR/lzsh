@@ -3,7 +3,7 @@
     <div>你确定要删除 <b>{{ row?.billNo }}</b> 吗？</div>
 
     <template #footer>
-      <el-button @click="handleCancel">取消</el-button>
+      <el-button @click="$emit('update:show', false)">取消</el-button>
       <el-button type="danger" :loading="loading" @click="handleConfirm">确认</el-button>
     </template>
   </el-dialog>
@@ -14,7 +14,6 @@ import { ref, watch, defineProps, defineEmits, defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useCarApi } from '/@/api/projectXiaojie/car/index';
 
-defineComponent({ name: 'deleteForm' })
 // props
 const props = defineProps<{
   show: boolean;
@@ -37,11 +36,6 @@ const handleClose = (done: Function) => {
   if (!loading.value) done();
 }
 
-// 点击取消
-const handleCancel = () => {
-  emit('update:show', false);
-}
-
 // 删除操作
 const handleConfirm = async () => {
   loading.value = true;
@@ -49,7 +43,7 @@ const handleConfirm = async () => {
     /**
      * 这里添加删除逻辑
      */
-    const result =await useCarApi().deleteCarDetail(props.row.billNo)
+    await useCarApi().deleteCarDetail(props.row.billNo)
     ElMessage.success('删除成功');
 
     emit('deleted', props.row);        // 通知父组件删除成功

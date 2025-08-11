@@ -1,6 +1,6 @@
 <template>
   <el-dialog v-model="visible" title="编辑车辆信息" width="600px" :before-close="handleClose">
-    <el-form :model="formData" ref="formRef" label-width="100px" :rules="rules" size="small">
+    <el-form :model="formData" ref="formRef" label-width="100px" :rules="rules">
       <el-form-item label="车牌号" prop="plateNumber" required>
         <el-input v-model="formData.plateNumber" maxlength="20" />
       </el-form-item>
@@ -22,6 +22,19 @@
         <el-input v-model="formData.phoneNumber" maxlength="15" />
       </el-form-item>
 
+      <el-form-item label="收费状态">
+        <el-select v-model="formData.feeStatus" placeholder="请选择收费状态" clearable>
+          <el-option label="已缴费" value="paid" />
+          <el-option label="未缴费" value="unpaid" />
+          <el-option label="免费" value="free" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="异常标记">
+        <el-select v-model="formData.exceptionFlag" placeholder="是否异常" clearable>
+          <el-option label="正常" value="normal" />
+          <el-option label="超时" value="exception" />
+        </el-select>
+      </el-form-item>
 
     </el-form>
 
@@ -36,14 +49,15 @@
 import { ref, watch, reactive, toRefs, defineProps, defineEmits } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useCarApi } from '/@/api/projectXiaojie/car';
-import { verifyPhone,verifyTelPhone } from '/@/utils/toolsValidate';
+import { verifyPhone, verifyTelPhone } from '/@/utils/toolsValidate';
 interface VehicleForm {
   billNo: string;
   plateNumber: string;
   vehicleType: string;
   ownerName: string;
   phoneNumber: string;
-  // 你可以继续添加字段
+  feeStatus: string;
+  exceptionFlag: string;
 }
 
 const props = defineProps<{
@@ -60,6 +74,8 @@ const formData = reactive<VehicleForm>({
   vehicleType: '',
   ownerName: '',
   phoneNumber: '',
+  feeStatus: '',
+  exceptionFlag: ''
 });
 
 const rules = {
@@ -67,21 +83,21 @@ const rules = {
   vehicleType: [{ required: true, message: '请选择车辆类型', trigger: 'change' }],
   ownerName: [{ required: true, message: '请输入车主姓名', trigger: 'blur' }],
   phoneNumber: [
-  { 
-    validator: (rule:any, value:any, callback:any) => {
-      if (!value) {
-        // 可选项，没填直接通过
-        return callback();
-      }
-      if (!verifyPhone(value) || !verifyTelPhone(value)) {
-        callback(new Error('请输入正确的联系方式'));
-      } else {
-        callback();
-      }
-    },
-    trigger: 'blur'
-  }
-]
+    {
+      validator: (rule: any, value: any, callback: any) => {
+        if (!value) {
+          // 可选项，没填直接通过
+          return callback();
+        }
+        if (!verifyPhone(value)) {
+          callback(new Error('请输入正确的联系方式'));
+        } else {
+          callback();
+        }
+      },
+      trigger: 'blur'
+    }
+  ]
 };
 const visible = ref(props.show);
 //保证存储成功后再关闭
