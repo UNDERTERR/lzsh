@@ -21,60 +21,6 @@ import { RouteRecordRaw } from 'vue-router';
  * @description 各字段请查看 `/@/views/system/menu/component/addMenu.vue 下的 ruleForm`
  * @returns 返回路由菜单数据
  */
-export const staticRoutes: Array<RouteRecordRaw> = [
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('/@/views/login/index.vue'),
-    meta: {
-      title: '登录',
-    },
-  },
-  /**
-   * 提示：写在这里的为全屏界面，不建议写在这里
-   * 请写在 `dynamicRoutes` 路由数组中
-   */
-  {
-    path: '/visualizingDemo1',
-    name: 'visualizingDemo1',
-    component: () => import('/@/views/visualizing/demo1.vue'),
-    meta: {
-      title: 'message.router.visualizingLinkDemo1',
-    },
-  },
-  {
-    path: '/visualizingDemo2',
-    name: 'visualizingDemo2',
-    component: () => import('/@/views/visualizing/demo2.vue'),
-    meta: {
-      title: 'message.router.visualizingLinkDemo2',
-    },
-  },
-];
-/**
- * 定义404、401界面
- * @link 参考：https://next.router.vuejs.org/zh/guide/essentials/history-mode.html#netlify
- */
-export const notFoundAndNoPower = [
-  {
-    path: '/:path(.*)*',
-    name: 'notFound',
-    component: () => import('/@/views/error/404.vue'),
-    meta: {
-      title: 'message.staticRoutes.notFound',
-      isHide: true,
-    },
-  },
-  {
-    path: '/401',
-    name: 'noPower',
-    component: () => import('/@/views/error/401.vue'),
-    meta: {
-      title: 'message.staticRoutes.noPower',
-      isHide: true,
-    },
-  },
-];
 export const dynamicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -85,27 +31,29 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
       isKeepAlive: true,
     },
     children: [
+      // 示例1：基础页面（首页）
       {
         path: '/home',
         name: 'home',
         component: () => import('/@/views/home/index.vue'),
         meta: {
-          title: 'message.router.home',
+          title: 'message.router.home', // 多语言示例
           isLink: '',
           isHide: false,
           isKeepAlive: true,
-          isAffix: true,
+          isAffix: true,    // 固定标签页
           isIframe: false,
-          roles: ['admin', 'common'],
-          icon: 'iconfont icon-shouye',
+          roles: ['admin', 'common'], // 权限控制
+          icon: 'iconfont icon-shouye', // 图标示例
         },
       },
 
+      // 示例2：嵌套路由（系统管理）
       {
         path: '/system',
         name: 'system',
-        component: () => import('/@/layout/routerView/parent.vue'),
-        redirect: '/system/menu',
+        component: () => import('/@/layout/routerView/parent.vue'), // 嵌套路由父组件
+        redirect: '/system/user',
         meta: {
           title: 'message.router.system',
           isLink: '',
@@ -113,40 +61,11 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           isKeepAlive: true,
           isAffix: false,
           isIframe: false,
-          roles: ['admin'],
+          roles: ['admin'], // 仅管理员可见
           icon: 'iconfont icon-xitongshezhi',
         },
         children: [
-          {
-            path: '/system/menu',
-            name: 'systemMenu',
-            component: () => import('/@/views/system/menu/index.vue'),
-            meta: {
-              title: 'message.router.systemMenu',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'iconfont icon-caidan',
-            },
-          },
-          {
-            path: '/system/role',
-            name: 'systemRole',
-            component: () => import('/@/views/system/role/index.vue'),
-            meta: {
-              title: 'message.router.systemRole',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'ele-ColdDrink',
-            },
-          },
+          // 用户管理
           {
             path: '/system/user',
             name: 'systemUser',
@@ -162,39 +81,136 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
               icon: 'iconfont icon-icon-',
             },
           },
+          
+          // 角色管理
           {
-            path: '/system/dept',
-            name: 'systemDept',
-            component: () => import('/@/views/system/dept/index.vue'),
+            path: '/system/role',
+            name: 'systemRole',
+            component: () => import('/@/views/system/role/index.vue'),
             meta: {
-              title: 'message.router.systemDept',
+              title: 'message.router.systemRole',
               isLink: '',
               isHide: false,
               isKeepAlive: true,
               isAffix: false,
               isIframe: false,
               roles: ['admin'],
-              icon: 'ele-OfficeBuilding',
+              icon: 'ele-ColdDrink', // Element Plus图标示例
             },
-          },
-          {
-            path: '/system/dic',
-            name: 'systemDic',
-            component: () => import('/@/views/system/dic/index.vue'),
-            meta: {
-              title: 'message.router.systemDic',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'ele-SetUp',
-            },
-          },
+          }
         ],
       },
+      // 费用规则
+	    {
+        path: '/feeRules',
+        name: 'feeRules',
+        component: () => import('/@/views/projectLJH/feeRules/parent.vue'), // 嵌套路由父组件
+        redirect: '/project/feeRules',
+        meta: {
+          title: '费用规则',
+          isLink: '',
+          isHide: false,
+          isKeepAlive: true,
+          isAffix: false,
+          isIframe: false,
+          roles: ['admin'],  
+          icon: 'ele-Money', 
+        },
+        children: [
+          {
+            path: '/feeRules/pricing',
+            name: 'pricingRules',
+            component: () => import('/@/views/projectLJH/feeRules/pricingRules.vue'),
+            meta: {
+              title: '收费规则',
+              isLink: '',
+              isHide: false,
+              isKeepAlive: true,
+              isAffix: false,
+              isIframe: false,
+              roles: ['admin'],
+              icon: 'ele-PriceTag', 
+            }
+          },
+          {
+            path: '/feeRules/refund',
+            name: 'refundRules',
+            component: () => import('/@/views/projectLJH/feeRules/refundRules.vue'),
+            meta: {
+              title: '退费规则', 
+              isLink: '',
+              isHide: false,
+              isKeepAlive: true,
+              isAffix: false,
+              isIframe: false,
+              roles: ['admin'],
+              icon: 'ele-RefreshLeft', 
+            }
+          }
+        ]
+      }
+    ],
+  },
+];
 
-    ]
-  }
-]
+/**
+ * 定义404、401界面
+ * @link 参考：https://next.router.vuejs.org/zh/guide/essentials/history-mode.html#netlify
+ */
+export const notFoundAndNoPower = [
+	{
+		path: '/:path(.*)*',
+		name: 'notFound',
+		component: () => import('/@/views/error/404.vue'),
+		meta: {
+			title: 'message.staticRoutes.notFound',
+			isHide: true,
+		},
+	},
+	{
+		path: '/401',
+		name: 'noPower',
+		component: () => import('/@/views/error/401.vue'),
+		meta: {
+			title: 'message.staticRoutes.noPower',
+			isHide: true,
+		},
+	},
+];
+
+/**
+ * 定义静态路由（默认路由）
+ * 此路由不要动，前端添加路由的话，请在 `dynamicRoutes 数组` 中添加
+ * @description 前端控制直接改 dynamicRoutes 中的路由，后端控制不需要修改，请求接口路由数据时，会覆盖 dynamicRoutes 第一个顶级 children 的内容（全屏，不包含 layout 中的路由出口）
+ * @returns 返回路由菜单数据
+ */
+export const staticRoutes: Array<RouteRecordRaw> = [
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import('/@/views/login/index.vue'),
+		meta: {
+			title: '登录',
+		},
+	},
+	/**
+	 * 提示：写在这里的为全屏界面，不建议写在这里
+	 * 请写在 `dynamicRoutes` 路由数组中
+	 */
+	{
+		path: '/visualizingDemo1',
+		name: 'visualizingDemo1',
+		component: () => import('/@/views/visualizing/demo1.vue'),
+		meta: {
+			title: 'message.router.visualizingLinkDemo1',
+		},
+	},
+	{
+		path: '/visualizingDemo2',
+		name: 'visualizingDemo2',
+		component: () => import('/@/views/visualizing/demo2.vue'),
+		meta: {
+			title: 'message.router.visualizingLinkDemo2',
+		},
+	},
+];
