@@ -22,135 +22,205 @@ import { RouteRecordRaw } from 'vue-router';
  * @returns 返回路由菜单数据
  */
 export const dynamicRoutes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: '/',
-    component: () => import('/@/layout/index.vue'),
-    redirect: '/home',
-    meta: {
-      isKeepAlive: true,
-    },
-    children: [
-      // 示例1：基础页面（首页）
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('/@/views/home/index.vue'),
-        meta: {
-          title: 'message.router.home', // 多语言示例
-          isLink: '',
-          isHide: false,
-          isKeepAlive: true,
-          isAffix: true,    // 固定标签页
-          isIframe: false,
-          roles: ['admin', 'common'], // 权限控制
-          icon: 'iconfont icon-shouye', // 图标示例
-        },
-      },
+	{
+		path: '/',
+		name: '/',
+		component: () => import('/@/layout/index.vue'),
+		redirect: '/home',
+		meta: {
+			isKeepAlive: true,
+		},
+		children: [
+			// 示例1：基础页面（首页）
+			{
+				path: '/home',
+				name: 'home',
+				component: () => import('/@/views/home/index.vue'),
+				meta: {
+					title: 'message.router.home', // 多语言示例
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: true, // 固定标签页
+					isIframe: false,
+					roles: ['admin', 'common'], // 权限控制
+					icon: 'iconfont icon-shouye', // 图标示例
+				},
+			},
 
-      // 示例2：嵌套路由（系统管理）
-      {
-        path: '/system',
-        name: 'system',
-        component: () => import('/@/layout/routerView/parent.vue'), // 嵌套路由父组件
-        redirect: '/system/user',
-        meta: {
-          title: 'message.router.system',
-          isLink: '',
-          isHide: false,
-          isKeepAlive: true,
-          isAffix: false,
-          isIframe: false,
-          roles: ['admin'], // 仅管理员可见
-          icon: 'iconfont icon-xitongshezhi',
-        },
-        children: [
-          // 用户管理
-          {
-            path: '/system/user',
-            name: 'systemUser',
-            component: () => import('/@/views/system/user/index.vue'),
-            meta: {
-              title: 'message.router.systemUser',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'iconfont icon-icon-',
-            },
-          },
-          
-          // 角色管理
-          {
-            path: '/system/role',
-            name: 'systemRole',
-            component: () => import('/@/views/system/role/index.vue'),
-            meta: {
-              title: 'message.router.systemRole',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'ele-ColdDrink', // Element Plus图标示例
-            },
-          }
-        ],
-      },
-      // 费用规则
-	    {
-        path: '/feeRules',
-        name: 'feeRules',
-        component: () => import('/@/views/projectLJH/feeRules/parent.vue'), // 嵌套路由父组件
-        redirect: '/project/feeRules',
-        meta: {
-          title: '费用规则',
-          isLink: '',
-          isHide: false,
-          isKeepAlive: true,
-          isAffix: false,
-          isIframe: false,
-          roles: ['admin'],  
-          icon: 'ele-Money', 
-        },
-        children: [
-          {
-            path: '/feeRules/pricing',
-            name: 'pricingRules',
-            component: () => import('/@/views/projectLJH/feeRules/pricingRules.vue'),
-            meta: {
-              title: '收费规则',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'ele-PriceTag', 
-            }
-          },
-          {
-            path: '/feeRules/refund',
-            name: 'refundRules',
-            component: () => import('/@/views/projectLJH/feeRules/refundRules.vue'),
-            meta: {
-              title: '退费规则', 
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin'],
-              icon: 'ele-RefreshLeft', 
-            }
-          }
-        ]
-      }
-    ],
-  },
+			// 示例2：嵌套路由（系统管理）
+			{
+				path: '/system',
+				name: 'system',
+				component: () => import('/@/layout/routerView/parent.vue'), // 嵌套路由父组件
+				redirect: '/system/user',
+				meta: {
+					title: 'message.router.system',
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: false,
+					isIframe: false,
+					roles: ['admin'], // 仅管理员可见
+					icon: 'iconfont icon-xitongshezhi',
+				},
+				children: [
+					// 用户管理
+					{
+						path: '/system/user',
+						name: 'systemUser',
+						component: () => import('/@/views/system/user/index.vue'),
+						meta: {
+							title: 'message.router.systemUser',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'iconfont icon-icon-',
+						},
+					},
+
+					// 角色管理
+					{
+						path: '/system/role',
+						name: 'systemRole',
+						component: () => import('/@/views/system/role/index.vue'),
+						meta: {
+							title: 'message.router.systemRole',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'ele-ColdDrink', // Element Plus图标示例
+						},
+					},
+				],
+			},
+			// 费用规则_LJH
+			{
+				path: '/feeRules',
+				name: 'feeRules',
+				component: () => import('/@/views/projectLJH/feeRules/parent.vue'), // 嵌套路由父组件
+				redirect: '/project/feeRules',
+				meta: {
+					title: '费用规则',
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: false,
+					isIframe: false,
+					roles: ['admin'],
+					icon: 'ele-Money',
+				},
+				children: [
+					{
+						path: '/feeRules/pricing',
+						name: 'pricingRules',
+						component: () => import('/@/views/projectLJH/feeRules/pricingRules.vue'),
+						meta: {
+							title: '收费规则',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'ele-PriceTag',
+						},
+					},
+					{
+						path: '/feeRules/refund',
+						name: 'refundRules',
+						component: () => import('/@/views/projectLJH/feeRules/refundRules.vue'),
+						meta: {
+							title: '退费规则',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'ele-RefreshLeft',
+						},
+					},
+				],
+			},
+			/**
+			 * 车辆进出场明细_xiaojie
+			 */
+			{
+				path: '/car',
+				name: 'car',
+				component: () => import('/@/layout/routerView/parent.vue'), // 父级容器组件
+				redirect: '/car/enexDetails',
+				meta: {
+					title: 'message.router.car', // 可以在语言包中配置为“车辆管理”或类似
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: false,
+					isIframe: false,
+					roles: ['admin'],
+					icon: 'ele-Cherry',
+				},
+				children: [
+					{
+						path: '/car/enexDetails',
+						name: 'carEnexDetails',
+						component: () => import('/@/views/projectXiaojie/car/enexDetails/index.vue'),
+						meta: {
+							title: 'message.router.carEnexDetails', // 对应“车辆进出场明细”
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'ele-DocumentAdd',
+						},
+					},
+				],
+			},
+			/* 赵师一 */
+			{
+				path: '/reporting',
+				name: 'reportingIndex',
+				component: () => import('/@/layout/routerView/parent.vue'),
+				redirect: '/reporting/registration',
+				meta: {
+					title: '报备报检',
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: false,
+					isIframe: false,
+					roles: ['admin', 'common'],
+					icon: 'iconfont icon-fuzhiyemian',
+				},
+				children: [
+					{
+						path: '/reporting/registration',
+						name: 'reportingregistration',
+						component: () => import('/@/views/reporting/registration/index.vue'),
+						meta: {
+							title: '报备登记',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin', 'common'],
+							icon: 'ele-Sell',
+						},
+					},
+				],
+			},
+		],
+	},
 ];
 
 /**
