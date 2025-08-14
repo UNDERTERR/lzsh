@@ -203,7 +203,7 @@ const getTagType = (status: string) => {
 		case '已完成':
 			return 'success';
 		case '已检验':
-			return 'primary';
+			return '';
 		case '待检验':
 			return 'warning';
 		default:
