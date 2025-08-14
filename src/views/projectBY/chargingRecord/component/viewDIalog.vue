@@ -1,5 +1,5 @@
 <template>
-	<el-dialog v-model="visibleProxy" title="查看" width="50%">
+	<el-dialog v-model="visible" title="查看" width="50%">
 		<el-descriptions :column="2" border>
 			<el-descriptions-item label="单据号">{{ detail?.transactionId }}</el-descriptions-item>
 			<el-descriptions-item label="车牌号">{{ detail?.plateNumber }}</el-descriptions-item>
@@ -22,8 +22,8 @@
 		</el-descriptions>
 		<template #footer>
 			<span class="dialog-footer">
-				<el-button @click="visibleProxy = false">取消</el-button>
-				<el-button type="primary" @click="visibleProxy = false">确定</el-button>
+				<el-button @click="visible = false">取消</el-button>
+				<el-button type="primary" @click="visible = false">确定</el-button>
 			</span>
 		</template>
 	</el-dialog>
@@ -58,7 +58,7 @@ const props = defineProps({
 		required: true,
 	},
 	detail: {
-		type: Object as () => TableDataItem,
+		type: Object as () => TableDataItem | null,
 		default: () => ({}),
 	},
 });
@@ -66,7 +66,7 @@ const props = defineProps({
 const emit = defineEmits(['update:visible']);
 
 // 使用计算属性实现v-model双向绑定，避免额外的状态管理
-const visibleProxy = computed({
+const visible = computed({
 	get: () => props.visible,
 	set: (value) => emit('update:visible', value),
 });

@@ -1,5 +1,5 @@
 <template>
-	<el-dialog v-model="visibleProxy" title="更多筛选" width="50%">
+	<el-dialog v-model="visible" title="更多筛选" width="50%">
 		<el-form :model="formData" label-width="120px">
 			<el-row :gutter="20">
 				<el-col :span="12">
@@ -98,7 +98,7 @@
 		<template #footer>
 			<span class="dialog-footer">
 				<el-button @click="resetForm">重置</el-button>
-				<el-button @click="visibleProxy = false">取消</el-button>
+				<el-button @click="visible = false">取消</el-button>
 				<el-button type="primary" @click="submitForm">确定</el-button>
 			</span>
 		</template>
@@ -118,7 +118,7 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'submit']);
 
 // 使用计算属性实现v-model双向绑定，避免额外的状态管理
-const visibleProxy = computed({
+const visible = computed({
 	get: () => props.visible,
 	set: (value) => emit('update:visible', value),
 });
@@ -138,7 +138,7 @@ const formData = reactive({
 
 const submitForm = () => {
 	emit('submit', formData);
-	visibleProxy.value = false;
+	visible.value = false;
 };
 
 // 重置表单
