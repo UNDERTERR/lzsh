@@ -43,59 +43,77 @@
   </el-form>
 </template>
 
-<script setup lang="ts">
-import { reactive, watch} from 'vue'
-const props = defineProps<{
-  modelValue: FormData
-  enPlaceOptions: Option[]
-  exPlaceOptions: Option[]
-}>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', val: FormData): void
-  (e: 'search', val: FormData): void
-}>()
+<script lang="ts">
+import { reactive, watch } from 'vue';
 
 interface Option {
-  label: string
-  value: string
+  label: string;
+  value: string;
 }
 
 interface FormData {
-  vehicleType?: string
-  feeStatus?: string
-  enPlace?: string
-  exPlace?: string
-  exceptionFlag?: string
+  vehicleType?: string;
+  feeStatus?: string;
+  enPlace?: string;
+  exPlace?: string;
+  exceptionFlag?: string;
 }
 
+export default {
+  name: 'CateForm',
+  props: {
+    modelValue: {
+      type: Object as () => FormData,
+      required: true
+    },
+    enPlaceOptions: {
+      type: Array as () => Option[],
+      required: true
+    },
+    exPlaceOptions: {
+      type: Array as () => Option[],
+      required: true
+    }
+  },
+  emits: ['update:modelValue', 'search'],
+  setup(props, { emit }) {
+    // 局部表单数据，初始化为传入的 modelValue
+    const localFormData = reactive<FormData>({ ...props.modelValue });
 
-// 局部表单数据，初始化为传入的 modelValue
-const localFormData = reactive<FormData>({ ...props.modelValue })
+    const onSearch = () => {
+      emit('search', { ...localFormData });
+    };
 
-const onSearch = () => {
-  emit('search', { ...localFormData })
-}
+    const onReset = () => {
+      Object.keys(localFormData).forEach((key) => {
+        localFormData[key as keyof FormData] = undefined;
+      });
+      emit('search', { ...localFormData }); // 重置后触发搜索
+    };
 
-const onReset = () => {
-  Object.keys(localFormData).forEach((key) => {
-    localFormData[key as keyof FormData] = undefined
-  })
-  emit('search', { ...localFormData }) // 也可以重置后直接触发搜索
-}
-// 监听外部 modelValue 变化，同步到局部数据
-watch(
-  () => props.modelValue,
-  (newVal) => {
-    Object.assign(localFormData, newVal)
+    // 监听外部 modelValue 变化，同步到局部数据
+    watch(
+      () => props.modelValue,
+      (newVal) => {
+        Object.assign(localFormData, newVal);
+      }
+    );
+
+    // 当局部数据变化时，向外触发更新事件，实现 v-model 双向绑定
+    watch(localFormData, (val) => {
+      emit('update:modelValue', { ...val });
+    });
+
+    return {
+      props,
+      localFormData,
+      onSearch,
+      onReset
+    };
   }
-)
-
-// 当局部数据变化时，向外触发更新事件，实现 v-model 双向绑定
-watch(localFormData, (val) => {
-  emit('update:modelValue', { ...val })
-})
+};
 </script>
+
 
 <style lang="scss" scoped>
 .category-filter-form {

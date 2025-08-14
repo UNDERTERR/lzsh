@@ -1,44 +1,61 @@
 <template>
-  <el-dialog v-model="props.show" title="车辆详情" width="500px">
+  <el-dialog v-model="props.show" title="车辆详情" width="500px" :before-close="handleClose
+">
     <el-descriptions :column="1" border>
-      <el-descriptions-item label="单据">{{ detail.billNo }}</el-descriptions-item>
-      <el-descriptions-item label="车牌号">{{ detail.plateNumber }}</el-descriptions-item>
-      <el-descriptions-item label="车辆类型">{{ detail.vehicleType }}</el-descriptions-item>
-      <el-descriptions-item label="车主">{{ detail.ownerName }}</el-descriptions-item>
-      <el-descriptions-item label="联系方式">{{ detail.phoneNumber }}</el-descriptions-item>
-      <el-descriptions-item label="入场时间">{{ detail.entryTime }}</el-descriptions-item>
-      <el-descriptions-item label="出场时间">{{ detail.exitTime }}</el-descriptions-item>
-      <el-descriptions-item label="进口岗亭">{{ detail.enPlace }}</el-descriptions-item>
-      <el-descriptions-item label="出口岗亭">{{ detail.exPlace }}</el-descriptions-item>
-      <el-descriptions-item label="收费状态">{{ detail.feeStatus }}</el-descriptions-item>
-      <el-descriptions-item label="收费员">{{ detail.cashier }}</el-descriptions-item>
-      <el-descriptions-item label="收费金额">{{ detail.cash }}</el-descriptions-item>
+      <el-descriptions-item label="单据">{{ row.billNo }}</el-descriptions-item>
+      <el-descriptions-item label="车牌号">{{ row.plateNumber }}</el-descriptions-item>
+      <el-descriptions-item label="车辆类型">{{ row.vehicleType }}</el-descriptions-item>
+      <el-descriptions-item label="车主">{{ row.ownerName }}</el-descriptions-item>
+      <el-descriptions-item label="联系方式">{{ row.phoneNumber }}</el-descriptions-item>
+      <el-descriptions-item label="入场时间">{{ row.entryTime }}</el-descriptions-item>
+      <el-descriptions-item label="出场时间">{{ row.exitTime }}</el-descriptions-item>
+      <el-descriptions-item label="进口岗亭">{{ row.enPlace }}</el-descriptions-item>
+      <el-descriptions-item label="出口岗亭">{{ row.exPlace }}</el-descriptions-item>
+      <el-descriptions-item label="收费状态">{{ row.feeStatus }}</el-descriptions-item>
+      <el-descriptions-item label="收费员">{{ row.cashier }}</el-descriptions-item>
+      <el-descriptions-item label="收费金额">{{ row.cash }}</el-descriptions-item>
     </el-descriptions>
-
-    <template #footer>
-      <el-button @click="$emit('update:show', false)">关闭</el-button>
-    </template>
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 interface CarDetail {
-  billNo?: string
-  plateNumber?: string
-  vehicleType?: string
-  ownerName?: string
-  phoneNumber?: string
-  entryTime?: string
-  exitTime?: string
-  enPlace?: string
-  exPlace?: string
-  feeStatus?: string
-  cashier?: string
-  cash?: string | number
+  billNo?: string;
+  plateNumber?: string;
+  vehicleType?: string;
+  ownerName?: string;
+  phoneNumber?: string;
+  entryTime?: string;
+  exitTime?: string;
+  enPlace?: string;
+  exPlace?: string;
+  feeStatus?: string;
+  cashier?: string;
+  cash?: string | number;
 }
 
-const props = defineProps<{
-  show: boolean
-  detail: CarDetail
-}>()
+export default {
+  name: 'CarDetailsDialog',
+  props: {
+    show: {
+      type: Boolean,
+      required: true
+    },
+    row: {
+      type: Object as () => CarDetail,
+      required: true
+    }
+  },
+  emits: ['update:show'],
+  setup(props, { emit }) {
+    const handleClose = () => {
+      emit('update:show', false);
+    };
+
+    return {
+      props,
+      handleClose
+    };
+  }
+};
 </script>

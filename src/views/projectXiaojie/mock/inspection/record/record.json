@@ -1,0 +1,69 @@
+{
+    "code": 0,
+    "message": "success",
+    "data": {
+        "total": 30,
+        "records": [
+            {
+                "inspectionDate": 1,
+                "inspectionCount": 9,
+                "abnormalIssueCount": 0,
+                "unreviewedAbnormalCount": 2
+            },
+            {
+                "inspectionDate": 2,
+                "inspectionCount": 4,
+                "abnormalIssueCount": 2,
+                "unreviewedAbnormalCount": 0
+            },
+            {
+                "inspectionDate": 3,
+                "inspectionCount": 9,
+                "abnormalIssueCount": 5,
+                "unreviewedAbnormalCount": 1
+            },
+            {
+                "inspectionDate": 4,
+                "inspectionCount": 1,
+                "abnormalIssueCount": 1,
+                "unreviewedAbnormalCount": 3
+            },
+            {
+                "inspectionDate": 5,
+                "inspectionCount": 9,
+                "abnormalIssueCount": 2,
+                "unreviewedAbnormalCount": 0
+            },
+            {
+                "inspectionDate": 6,
+                "inspectionCount": 1,
+                "abnormalIssueCount": 4,
+                "unreviewedAbnormalCount": 2
+            },
+            {
+                "inspectionDate": 7,
+                "inspectionCount": 2,
+                "abnormalIssueCount": 5,
+                "unreviewedAbnormalCount": 1
+            },
+            {
+                "inspectionDate": 8,
+                "inspectionCount": 5,
+                "abnormalIssueCount": 4,
+                "unreviewedAbnormalCount": 2
+            },
+            {
+                "inspectionDate": 9,
+                "inspectionCount": 9,
+                "abnormalIssueCount": 1,
+                "unreviewedAbnormalCount": 1
+            },
+            {
+                "inspectionDate": 10,
+                "inspectionCount": 3,
+                "abnormalIssueCount": 3,
+                "unreviewedAbnormalCount": 2
+            }
+        ]
+    }
+}

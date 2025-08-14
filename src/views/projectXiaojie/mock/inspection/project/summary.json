@@ -1,0 +1,8 @@
+{
+    "code":0,
+    "message":"success",
+    "data":{
+        "cate":"公共区域",
+        "quantity":"@integer(1,10)"
+    }
+}

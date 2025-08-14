@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="show" title="查询条件" width="500px">
+  <el-dialog v-model="props.show" title="查询条件" width="500px" :before-close="handleClose">
     <el-form :model="formData" label-width="100px" class="query-form">
       <el-form-item label="单据">
         <el-input v-model="formData.billNo" placeholder="请输入单据" clearable />
@@ -36,49 +36,63 @@
 
 </template>
 
-<script setup lang="ts">
-import { reactive } from 'vue'
-const emit = defineEmits<{
-  (event: 'search', formData: FormData): void
-  (event: 'update:show', visible: boolean): void;
-}>()
-const props = defineProps<{
-  show: boolean
-  loading?: boolean
-}>()
-
+<script lang="ts">
+import { reactive } from 'vue';
 
 interface FormData {
-  billNo: string //单据
-  ownerName: string //车主
-  phoneNumber: string //手机号
-  plateNumber: string //车牌号
-  cashier: string //收费员
-  cash: string //收费金额
+  billNo: string;      // 单据
+  ownerName: string;   // 车主
+  phoneNumber: string; // 手机号
+  plateNumber: string; // 车牌号
+  cashier: string;     // 收费员
+  cash: string;        // 收费金额
 }
 
-const formData = reactive<FormData>({
-  billNo: '',//单据
-  ownerName: '', //车主
-  phoneNumber: '',//手机号
-  plateNumber: '',//车牌号
-  cashier: '',//收费员
-  cash: '' //收费金额
-})
+export default {
+  name: 'SearchForm',
+  props: {
+    show: {
+      type: Boolean,
+      required: true
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ['update:show', 'search'],
+  setup(props, { emit }) {
+    const formData = reactive<FormData>({
+      billNo: '',
+      ownerName: '',
+      phoneNumber: '',
+      plateNumber: '',
+      cashier: '',
+      cash: ''
+    });
 
+    const handleSearch = () => {
+      const filtered = Object.fromEntries(
+        Object.entries(formData).filter(([_, v]) => v !== '')
+      ) as Partial<FormData>;
 
-const handleSearch = () => {
-  // as:TypeScript 类型断言，告诉编译器这个对象的类型是 FormData 的部分字段（Partial 表示所有字段都可选）。
-  const filtered = Object.fromEntries(
-    Object.entries(formData).filter(([_, v]) => v !== '')
-  ) as Partial<FormData>
+      emit('search', filtered as FormData);
+    };
 
-  emit('search', filtered as FormData)
-}
+    const handleClose = () => {
+      emit('update:show', false);
+    };
 
-
-
+    return {
+      props,
+      formData,
+      handleSearch,
+      handleClose
+    };
+  }
+};
 </script>
+
 
 <style scoped lang="scss">
 .query-form {

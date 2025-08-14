@@ -1,0 +1,74 @@
+{
+  "code": 0,
+  "message": "success",
+  "data": {
+    "total": 100,
+    "records": [
+      {
+        "id": 1,
+        "locationName": "2幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 2,
+        "locationName": "3幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 3,
+        "locationName": "2幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 4,
+        "locationName": "4幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 5,
+        "locationName": "2幢内",
+        "locationCate": "公共区域"
+      },
+      {
+        "id": 6,
+        "locationName": "3幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 7,
+        "locationName": "2幢内",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 8,
+        "locationName": "2幢外",
+        "locationCate": "公共区域"
+      },
+      {
+        "id": 9,
+        "locationName": "3幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 10,
+        "locationName": "1幢外",
+        "locationCate": "公共区域"
+      },
+      {
+        "id": 8,
+        "locationName": "2幢外",
+        "locationCate": "公共区域"
+      },
+      {
+        "id": 9,
+        "locationName": "3幢外",
+        "locationCate": "私人区域"
+      },
+      {
+        "id": 10,
+        "locationName": "1幢外",
+        "locationCate": "公共区域"
+      }
+    ]
+  }
+}
