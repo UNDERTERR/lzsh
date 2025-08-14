@@ -39,14 +39,14 @@
 <script lang="ts">
 import { reactive } from 'vue';
 
-interface FormData {
-  billNo: string;      // 单据
-  ownerName: string;   // 车主
-  phoneNumber: string; // 手机号
-  plateNumber: string; // 车牌号
-  cashier: string;     // 收费员
-  cash: string;        // 收费金额
-}
+// interface FormData {
+//   billNo: string;      // 单据
+//   ownerName: string;   // 车主
+//   phoneNumber: string; // 手机号
+//   plateNumber: string; // 车牌号
+//   cashier: string;     // 收费员
+//   cash: string;        // 收费金额
+// }
 
 export default {
   name: 'SearchForm',
@@ -62,7 +62,7 @@ export default {
   },
   emits: ['update:show', 'search'],
   setup(props, { emit }) {
-    const formData = reactive<FormData>({
+    const formData = reactive<any>({
       billNo: '',
       ownerName: '',
       phoneNumber: '',
@@ -74,9 +74,9 @@ export default {
     const handleSearch = () => {
       const filtered = Object.fromEntries(
         Object.entries(formData).filter(([_, v]) => v !== '')
-      ) as Partial<FormData>;
+      ) as Partial<any>;
 
-      emit('search', filtered as FormData);
+      emit('search', filtered as any);
     };
 
     const handleClose = () => {

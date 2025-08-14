@@ -25,11 +25,11 @@ import { ref, reactive, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useInspectionApi } from '/@/api/projectXiaojie/inspection';
 import {ElMessage} from 'element-plus';
-interface Location {
-  id: string;
-  locationName?: string;
-  locationCate?: string;
-}
+// interface Location {
+//   id: string;
+//   locationName?: string;
+//   locationCate?: string;
+// }
 
 export default {
   name: 'EditLocationForm',
@@ -39,14 +39,15 @@ export default {
       required: true
     },
     row: {
-      type: Object as () => Location,
+      // type: Object as () => Location,
+      type: Object,
       required: true
     }
   },
   emits: ['update:show', 'edited'],
   setup(props, { emit }) {
     // 初始化表单数据
-    const formData = reactive<Location>({
+    const formData = reactive<any>({
       id: '',
       locationCate: '',
       locationName: ''

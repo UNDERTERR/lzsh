@@ -36,12 +36,6 @@
             </el-icon>
             删除
           </el-button>
-          <!-- <el-button type="primary" text @click="handleQRCode(scope.row)">
-            <el-icon style="margin-right: 1px;">
-              <Edit />
-            </el-icon>
-            生成二维码
-          </el-button> -->
         </template>
 
       </el-table-column>
@@ -70,13 +64,13 @@ import { Edit, Delete, Plus, Search } from '@element-plus/icons-vue'
 import DeleteForm from './component/deleteForm.vue'
 import EditForm from './component/editForm.vue'
 import AddForm from './component/addForm.vue';
-interface Location {
-  id: string,
-  locationName?: string,
-  locationCate?: string
-}
+// interface Location {
+//   id: string,
+//   locationName?: string,
+//   locationCate?: string
+// }
 const searchParams = ref<Record<string, any>>({})
-const tableData = ref<Location[]>([])
+const tableData = ref<any[]>([])
 /**
  * 分页
  */

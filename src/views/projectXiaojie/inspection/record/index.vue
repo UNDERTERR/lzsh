@@ -110,25 +110,25 @@ import { useInspectionApi } from '/@/api/projectXiaojie/inspection';
 import { View, Search } from '@element-plus/icons-vue';
 import RecordDetailDialog from './component/recordDetailDialog.vue';
 
-interface SummaryList {
-  inspectionDate: string;
-  inspectionCount: number;
-  abnormalIssueCount: number;
-  unreviewedAbnormalCount: number;
-  id: string;
-}
+// interface SummaryList {
+//   inspectionDate: string;
+//   inspectionCount: number;
+//   abnormalIssueCount: number;
+//   unreviewedAbnormalCount: number;
+//   id: string;
+// }
 
-interface DetailList {
-  inspectionId: string;
-  inspectionTime: string;
-  locationType: string;
-  locationName: string;
-  inspectionResult?: string;
-  inspector?: string;
-  reviewStatus?: string;
-  inspectionImage?: string;     // 图片链接，字符串类型
-  inspectionRemark?: string;    // 备注，字符串类型
-}
+// interface DetailList {
+//   inspectionId: string;
+//   inspectionTime: string;
+//   locationType: string;
+//   locationName: string;
+//   inspectionResult?: string;
+//   inspector?: string;
+//   reviewStatus?: string;
+//   inspectionImage?: string;     // 图片链接，字符串类型
+//   inspectionRemark?: string;    // 备注，字符串类型
+// }
 
 export default {
   name: 'InspectionRecord',
@@ -140,8 +140,8 @@ export default {
       reviewStatus: ''
     });
 
-    const summaryList = ref<SummaryList[]>([]);
-    const detailList = ref<DetailList[]>([]);
+    const summaryList = ref<any[]>([]);
+    const detailList = ref<any[]>([]);
     const isShowingDetail = ref(false);
     const currentDate = ref('');
 
@@ -200,7 +200,7 @@ export default {
       loadList({ inspectionDate: date });
     };
 
-    const handleDetail = (row: DetailList) => {
+    const handleDetail = (row: any) => {
       detailsRow.value = row;
       showDetailsDialogVisible.value = true;
     };

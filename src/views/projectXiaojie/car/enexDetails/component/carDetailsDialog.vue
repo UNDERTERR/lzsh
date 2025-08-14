@@ -19,20 +19,20 @@
 </template>
 
 <script lang="ts">
-interface CarDetail {
-  billNo?: string;
-  plateNumber?: string;
-  vehicleType?: string;
-  ownerName?: string;
-  phoneNumber?: string;
-  entryTime?: string;
-  exitTime?: string;
-  enPlace?: string;
-  exPlace?: string;
-  feeStatus?: string;
-  cashier?: string;
-  cash?: string | number;
-}
+// interface CarDetail {
+//   billNo?: string;
+//   plateNumber?: string;
+//   vehicleType?: string;
+//   ownerName?: string;
+//   phoneNumber?: string;
+//   entryTime?: string;
+//   exitTime?: string;
+//   enPlace?: string;
+//   exPlace?: string;
+//   feeStatus?: string;
+//   cashier?: string;
+//   cash?: string | number;
+// }
 
 export default {
   name: 'CarDetailsDialog',
@@ -42,7 +42,8 @@ export default {
       required: true
     },
     row: {
-      type: Object as () => CarDetail,
+      // type: Object as () => CarDetail,
+      type: Object,
       required: true
     }
   },

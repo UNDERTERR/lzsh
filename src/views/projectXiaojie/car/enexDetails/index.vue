@@ -67,22 +67,22 @@ import CarDetailsDialog from './component/carDetailsDialog.vue';
 import CateForm from './component/cateForm.vue';
 import AddForm from './component/addForm.vue';
 
-interface CarRecord {
-  billNo: string;          // 单据
-  plateNumber?: string;     // 车牌号
-  vehicleType?: string;     // 车辆类型
-  ownerName?: string;       // 车主
-  phoneNumber?: string;     // 联系方式
-  entryTime?: string;       // 进场时间
-  exitTime?: string;        // 出场时间
-  duration?: string | number; // 停留时长
-  enPlace?: string;         // 进口岗亭
-  exPlace?: string;         // 出口岗亭
-  feeStatus?: string;       // 收费状态
-  cashier?: string;         // 收费员
-  cash?: number | string;   // 收费金额
-  exceptionFlag?: string;   // 异常标记
-}
+// interface CarRecord {
+//   billNo: string;          // 单据
+//   plateNumber?: string;     // 车牌号
+//   vehicleType?: string;     // 车辆类型
+//   ownerName?: string;       // 车主
+//   phoneNumber?: string;     // 联系方式
+//   entryTime?: string;       // 进场时间
+//   exitTime?: string;        // 出场时间
+//   duration?: string | number; // 停留时长
+//   enPlace?: string;         // 进口岗亭
+//   exPlace?: string;         // 出口岗亭
+//   feeStatus?: string;       // 收费状态
+//   cashier?: string;         // 收费员
+//   cash?: number | string;   // 收费金额
+//   exceptionFlag?: string;   // 异常标记
+// }
 
 export default {
   name: 'CarManage',
@@ -95,7 +95,7 @@ export default {
     AddForm
   },
   setup() {
-    const tableData = ref<Array<CarRecord>>([]);
+    const tableData = ref<Array<any>>([]);
     const searchParams = ref<Record<string, any>>({});
 
     const page = ref(1);
@@ -136,7 +136,7 @@ export default {
     // 详情
     const showDetailsDialogVisible = ref(false);
     const detailsRow = ref<any>({});
-    const handleDetail = (row: CarRecord) => {
+    const handleDetail = (row: any) => {
       detailsRow.value = row;
       showDetailsDialogVisible.value = true;
     };

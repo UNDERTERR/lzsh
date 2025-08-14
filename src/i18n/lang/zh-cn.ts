@@ -18,6 +18,9 @@ export default {
     inspection_record:'巡检记录',
     inspection_project:'巡检项目设置',
     inspection_performance:'巡检员绩效',
+    //农产明细
+    product:'产品管理',
+    product_details:'市场营销商品',
 		limitsFrontEnd: '前端控制',
 		limitsFrontEndPage: '页面权限',
 		limitsFrontEndBtn: '按钮权限',

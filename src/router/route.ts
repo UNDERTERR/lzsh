@@ -265,6 +265,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 
           ],
       },
+      {
+        path: '/product',
+        name: 'product',
+        component: () => import('/@/layout/routerView/parent.vue'), // 父级容器组件
+        redirect: '/product/details',
+        meta: {
+          title: 'message.router.product', // 可以在语言包中配置为“车辆管理”或类似
+          isLink: '',
+          isHide: false,
+          isKeepAlive: true,
+          isAffix: false,
+          isIframe: false,
+          roles: ['admin'],
+          icon: 'ele-Box',
+        },
+        children: [
+          {
+            path: '/product/details',
+            name: 'productDetails',
+            component: () => import('/@/views/projectXiaojie/product/details/index.vue'),
+            meta: {
+              title: 'message.router.product_details', // 对应“车辆进出场明细”
+              isLink: '',
+              isHide: false,
+              isKeepAlive: true,
+              isAffix: false,
+              isIframe: false,
+              roles: ['admin'],
+              icon: 'ele-ShoppingBag',
+            },
+          },
+        ],
+      },
       /* 赵师一 */
       {
         path: '/reporting',

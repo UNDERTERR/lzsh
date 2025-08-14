@@ -36,7 +36,7 @@
     </el-form-item>
 
     <el-form-item class="form-button">
-      
+
       <el-button plain size="small" type="primary" @click="onSearch" style="margin-left: 1px;">分类查询</el-button>
       <el-button size="small" @click="onReset">重置</el-button>
     </el-form-item>
@@ -46,39 +46,40 @@
 <script lang="ts">
 import { reactive, watch } from 'vue';
 
-interface Option {
-  label: string;
-  value: string;
-}
+// interface Option {
+//   label: string;
+//   value: string;
+// }
 
-interface FormData {
-  vehicleType?: string;
-  feeStatus?: string;
-  enPlace?: string;
-  exPlace?: string;
-  exceptionFlag?: string;
-}
+// interface FormData {
+//   vehicleType?: string;
+//   feeStatus?: string;
+//   enPlace?: string;
+//   exPlace?: string;
+//   exceptionFlag?: string;
+// }
 
 export default {
   name: 'CateForm',
   props: {
     modelValue: {
-      type: Object as () => FormData,
+      // type: Object as () => FormData,
+      type: Object,
       required: true
     },
     enPlaceOptions: {
-      type: Array as () => Option[],
+      type: Array as () => any[],
       required: true
     },
     exPlaceOptions: {
-      type: Array as () => Option[],
+      type: Array as () => any[],
       required: true
     }
   },
   emits: ['update:modelValue', 'search'],
   setup(props, { emit }) {
     // 局部表单数据，初始化为传入的 modelValue
-    const localFormData = reactive<FormData>({ ...props.modelValue });
+    const localFormData = reactive<any>({ ...props.modelValue });
 
     const onSearch = () => {
       emit('search', { ...localFormData });
@@ -86,7 +87,8 @@ export default {
 
     const onReset = () => {
       Object.keys(localFormData).forEach((key) => {
-        localFormData[key as keyof FormData] = undefined;
+        // localFormData[key as keyof FormData] = undefined;
+        localFormData[key] = undefined;
       });
       emit('search', { ...localFormData }); // 重置后触发搜索
     };
@@ -117,9 +119,10 @@ export default {
 
 <style lang="scss" scoped>
 .category-filter-form {
-  .el-form-item { 
+  .el-form-item {
     margin-right: 0px;
   }
+
   .form-button {
     margin-left: 30px;
   }

@@ -43,15 +43,15 @@
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useCarApi } from '/@/api/projectXiaojie/car';
-interface FormData {
-  billNo: string;
-  plateNumber: string;
-  vehicleType: string;
-  ownerName: string;
-  phoneNumber: string;
-  enTime: string;
-  exTime: string;
-}
+// interface FormData {
+//   billNo: string;
+//   plateNumber: string;
+//   vehicleType: string;
+//   ownerName: string;
+//   phoneNumber: string;
+//   enTime: string;
+//   exTime: string;
+// }
 
 export default {
   name: 'EditForm',
@@ -64,7 +64,7 @@ export default {
   emits: ['update:show', 'saved'],
   setup(props, { emit }) {
     const formRef = ref();
-    const form = ref<FormData>({
+    const form = ref<any>({
       billNo: '',
       plateNumber: '',
       vehicleType: '',

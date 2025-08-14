@@ -51,15 +51,15 @@ import type { FormInstance } from 'element-plus';
 import { useCarApi } from '/@/api/projectXiaojie/car';
 import { verifyPhone } from '/@/utils/toolsValidate';
 
-interface VehicleForm {
-  billNo: string;
-  plateNumber: string;
-  vehicleType: string;
-  ownerName: string;
-  phoneNumber: string;
-  feeStatus: string;
-  exceptionFlag: string;
-}
+// interface VehicleForm {
+//   billNo: string;
+//   plateNumber: string;
+//   vehicleType: string;
+//   ownerName: string;
+//   phoneNumber: string;
+//   feeStatus: string;
+//   exceptionFlag: string;
+// }
 
 export default {
   name: 'EditCarForm',
@@ -69,14 +69,15 @@ export default {
       required: true
     },
     row: {
-      type: Object as () => VehicleForm,
+      // type: Object as () => VehicleForm,
+      type: Object,
       required: true
     }
   },
   emits: ['update:show', 'edited'],
   setup(props, { emit }) {
     // 初始化表单数据，防止直接修改传入的props
-    const formData = reactive<VehicleForm>({
+    const formData = reactive<any>({
       billNo: '',
       plateNumber: '',
       vehicleType: '',

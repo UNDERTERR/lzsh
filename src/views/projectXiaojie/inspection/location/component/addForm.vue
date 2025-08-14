@@ -25,11 +25,11 @@ import { ref, reactive, watch } from 'vue';
 import { ElMessage, type FormInstance } from 'element-plus';
 import { useInspectionApi } from '/@/api/projectXiaojie/inspection';
 
-interface Location {
-  id: string;
-  locationName?: string;
-  locationCate?: string;
-}
+// interface Location {
+//   id: string;
+//   locationName?: string;
+//   locationCate?: string;
+// }
 
 export default {
   name: 'AddLocationForm',
@@ -42,7 +42,7 @@ export default {
   emits: ['update:show', 'added'],
   setup(props, { emit }) {
     // 初始化表单数据
-    const formData = reactive<Location>({
+    const formData = reactive<any>({
       id: '',
       locationCate: '',
       locationName: ''
