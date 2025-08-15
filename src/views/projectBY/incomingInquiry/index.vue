@@ -119,7 +119,7 @@ const selectedRows = ref<TableDataItem[]>([]);
 // 弹窗状态
 const filterDialogVisible = ref(false);
 const viewDialogVisible = ref(false);
-const selectedRow = ref<TableDataItem | null>(null);
+const selectedRow = ref<TableDataItem>();
 
 // 获取数据 - 随机模拟数据
 const fetchData = () => {
