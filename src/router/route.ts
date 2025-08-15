@@ -315,7 +315,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           },
         ],
       },
-      /* 赵师一 */
+      /* 注射液 */
       {
         path: '/reporting',
         name: 'reportingIndex',
@@ -332,21 +332,36 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           icon: 'iconfont icon-fuzhiyemian',
         },
         children: [
-          {
-            path: '/reporting/registration',
-            name: 'reportingregistration',
-            component: () => import('/@/views/reporting/registration/index.vue'),
-            meta: {
-              title: '报备登记',
-              isLink: '',
-              isHide: false,
-              isKeepAlive: true,
-              isAffix: false,
-              isIframe: false,
-              roles: ['admin', 'common'],
-              icon: 'ele-Sell',
-            },
-          },
+					{
+						path: '/reporting/registration',
+						name: 'reportingregistration',
+						component: () => import('/@/views/projectZsy/reporting/registration/index.vue'),
+						meta: {
+							title: '报备登记',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin', 'common'],
+							icon: 'ele-Sell',
+						},
+					},
+					{
+						path: '/reporting/management',
+						name: 'reportingmanagement',
+						component: () => import('/@/views/projectZsy/reporting/management/index.vue'),
+						meta: {
+							title: '报备管理',
+							isLink: '',
+							isHide: false,
+							isKeepAlive: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin', 'common'],
+							icon: 'ele-Sell',
+						},
+					}
         ],
       },
       // 白云
