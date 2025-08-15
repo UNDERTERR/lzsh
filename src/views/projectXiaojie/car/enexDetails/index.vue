@@ -1,11 +1,11 @@
 <template>
   <div class="car-enex-details">
 
-    <CateForm v-model="cateForm" :enPlaceOptions="enPlaceOptions" :exPlaceOptions="exPlaceOptions"
+    <CateForm v-model:cateForm="cateForm" :enPlaceOptions="enPlaceOptions" :exPlaceOptions="exPlaceOptions"
       @search="handleSearch" />
 
     <!-- 表格 -->
-    <el-table :data="tableData" size="small" border scrollbar-always-on="true" class="table">
+    <el-table :data="tableData" size="small" border :scrollbar-always-on="true" class="table" :loading="loading">
       <el-table-column align="center" prop="billNo" label="单据" />
       <el-table-column align="center" prop="plateNumber" label="车牌号" width="120" />
       <el-table-column align="center" prop="vehicleType" label="车辆类型" width="80" />
@@ -27,19 +27,18 @@
       <el-table-column align="center" prop="exceptionFlag" label="异常标记" />
 
       <el-table-column fixed="right" align="center" prop="operation" label="操作" width="180">
-        <template #default="scope">
-          <el-button type="primary" text @click="handleDetail(scope.row)">详情</el-button>
-          <el-button type="warning" text @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="danger" text @click="handleDelete(scope.row)">删除</el-button>
+        <template #default="{ row }">
+          <el-button type="primary" text @click="handleDetail(row)">详情</el-button>
+          <el-button type="warning" text @click="handleEdit(row)">编辑</el-button>
+          <el-button type="danger" text :loading="row.loading" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 对话框 -->
     <CarDetailsDialog v-model:show="showDetailsDialogVisible" :row="detailsRow" />
-    <DeleteForm v-model:show="showDeleteDialogVisible" :row="deleteRow" @deleted="loadList" />
     <EditForm v-model:show="showEditDialogVisible" :row="editRow" @edited="update" />
-    <SearchForm v-model:show="showSearchDialog"  :loading="loading" @search="handleSearch" />
+    <SearchForm v-model:show="showSearchDialog" @search="handleSearch" />
     <AddForm v-model:show="showAddDialog" @saved="handleAddSaved" />
 
     <!-- 分页 -->
@@ -60,8 +59,8 @@
 import { ref, reactive, onMounted, watch } from 'vue';
 import { useCarApi } from '/@/api/projectXiaojie/car';
 import { maskPhone } from '../../../../utils/tools';
+import { ElMessage, ElMessageBox } from 'element-plus';
 import SearchForm from './component/searchForm.vue';
-import DeleteForm from './component/deleteForm.vue';
 import EditForm from './component/editForm.vue';
 import CarDetailsDialog from './component/carDetailsDialog.vue';
 import CateForm from './component/cateForm.vue';
@@ -88,7 +87,6 @@ export default {
   name: 'CarManage',
   components: {
     SearchForm,
-    DeleteForm,
     EditForm,
     CarDetailsDialog,
     CateForm,
@@ -142,12 +140,33 @@ export default {
     };
 
     // 删除
-    const showDeleteDialogVisible = ref(false);
-    const deleteRow = ref<any>();
     const handleDelete = (row: any) => {
-      deleteRow.value = row;
-      showDeleteDialogVisible.value = true;
+      ElMessageBox.confirm(
+        `你确定要删除单据号 <b>${row.billNo}</b> 吗？`,
+        '删除确认',
+        {
+          type: 'warning',
+          dangerouslyUseHTMLString: true, // 支持 HTML
+        }
+      ).then(async () => {
+        row.loading = true;
+        try {
+          await useCarApi().deleteCarDetail(row.billNo); // 调用接口，只传 id
+          // 删除表格中对应行
+          tableData.value = tableData.value.filter(item => item.billNo !== row.billNo);
+          total.value -= 1; // 更新总数
+          ElMessage.success('删除成功');
+        } catch (error) {
+          ElMessage.error('删除失败，请稍后重试');
+        } finally {
+          row.loading = false;
+        }
+      }).catch(() => {
+        // 用户取消操作
+        ElMessage.info('已取消删除');
+      });
     };
+
 
     // 编辑
     const showEditDialogVisible = ref(false);
@@ -186,7 +205,9 @@ export default {
       { label: '出口3号岗亭', value: '出口3号岗亭' }
     ]);
 
-    // 搜索
+    /**
+     * 搜索
+     */
     const showSearchDialog = ref(false);
     const handleSearch = (params: Record<string, any>) => {
       page.value = 1;
@@ -197,9 +218,11 @@ export default {
       console.log('showSearchDialog 改变了:', newVal);
     });
 
-    // 新增
+    /**
+     * 新增
+     */
     const showAddDialog = ref(false);
-    const handleAddSaved = ()=>{
+    const handleAddSaved = () => {
       showAddDialog.value = false;
       loadList();
     };
@@ -217,8 +240,6 @@ export default {
       showDetailsDialogVisible,
       detailsRow,
       handleDetail,
-      showDeleteDialogVisible,
-      deleteRow,
       handleDelete,
       showEditDialogVisible,
       editRow,

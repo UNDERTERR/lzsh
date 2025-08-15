@@ -6,7 +6,7 @@
         巡视日期：
         <el-date-picker v-model="currentDate" type="daterange" format="YYYY-MM-DD" value-format="yyyy-MM-dd"
           size="small" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" />
-        <el-button type="primary" @click="loadList" size="small" style="margin-left: 10px;">
+        <el-button type="primary" @click="loadList" size="small" style="margin-left: 10px;" :loading="loading">
           <el-icon style="margin-right: 5px;">
             <Search />
           </el-icon>搜索
@@ -67,7 +67,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="loadList">
+          <el-button type="primary" @click="loadList" :loading="loading">
             <el-icon style="margin-right: 5px;">
               <Search />
             </el-icon>搜索

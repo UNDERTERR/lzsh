@@ -26,7 +26,7 @@
     <template #footer>
       <div style="display: flex; justify-content: flex-end; ">
         <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="submitForm">保存</el-button>
+        <el-button type="primary" @click="submitForm" :loading="loading">保存</el-button>
       </div>
     </template>
   </el-dialog>
@@ -60,22 +60,28 @@ export default {
       deductionPerAbnormalIssue: 5,
       bonusPerExtraInspection: 3
     });
-    const submitForm = async() => {
-        try {
-          await useInspectionApi().setPerformance(performanceRule.value);
-          ElMessage.success('修改成功');
-          emit('update:show', false);
-          emit('saved');
-        } catch (error) {
-          ElMessage.error('修改失败，请稍后重试');
-        }
-      handleClose();
-    }
+    const loading = ref(false);
+    const submitForm = async () => {
+      loading.value = true; // 开始 loading
+      try {
+        await useInspectionApi().setPerformance(performanceRule.value);
+        ElMessage.success('修改成功');
+        emit('update:show', false); // 关闭弹窗
+        emit('saved'); // 通知父组件刷新
+      } catch (error) {
+        ElMessage.error('修改失败，请稍后重试');
+      } finally {
+        loading.value = false; // 无论成功或失败，都关闭 loading
+        handleClose(); // 如果你希望每次都关闭弹窗，可以放这里
+      }
+    };
+
     return {
       props,
       performanceRule,
       handleClose,
-      submitForm
+      submitForm,
+      loading
     }
   }
 }

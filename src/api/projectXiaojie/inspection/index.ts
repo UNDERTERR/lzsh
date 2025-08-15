@@ -86,6 +86,7 @@ export function useInspectionApi() {
         data,
       });
     },
+    //performance
     setPerformance: (data: object) => {
       return request({
         url: 'https://m1.apifoxmock.com/m1/6918002-6634022-default/inspection/project',

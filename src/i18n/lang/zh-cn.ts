@@ -12,6 +12,7 @@ export default {
     //车辆
     car:'车辆管理',
     carEnexDetails:'车辆进出场明细',
+    carOperation:'在场车辆设置',
     //巡检
     inspection:'巡检管理',
     inspection_location:'巡检位置',

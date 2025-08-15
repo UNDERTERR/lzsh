@@ -8,14 +8,14 @@
       <span class="label">巡检人员：</span>
       <el-input style="width: 250px;" v-model="inspector" placeholder="请输入巡检人员" size="small" />
 
-      <el-button type="primary" @click="loadList" size="small" style="margin-left: 15px;">
+      <el-button type="primary" @click="loadList" size="small" style="margin-left: 15px;" :loading="loading">
         <el-icon style="margin-right: 4px">
           <Search />
         </el-icon>
         搜索
       </el-button>
     </div>
-    <el-table :data="performanceList" border class="table">
+    <el-table :data="performanceList" border class="table" :Loading="loading">
       <el-table-column align="center" prop="inspectionDate" label="评定月份" width="205" />
       <el-table-column align="center" prop="inspector" label="巡检人员" width="208" />
       <el-table-column align="center" prop="inspectionDays" label="巡检天数" width="205" />

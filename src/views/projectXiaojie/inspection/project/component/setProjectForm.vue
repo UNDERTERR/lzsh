@@ -17,7 +17,7 @@
     <template #footer>
       <div style="display: flex; justify-content: flex-end; ">
         <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="submitForm">保存</el-button>
+        <el-button type="primary" @click="submitForm" :loading="loading">保存</el-button>
       </div>
     </template>
   </el-dialog>
@@ -67,22 +67,25 @@ export default {
       };
       if (projectDataRef.value) projectDataRef.value.clearValidate();
     };
-
+    const loading=ref(false);
     const submitForm = async () => {
-      projectDataRef.value.validate(async (valid: boolean) => {
-        if (valid) {
-          try {
-            await useInspectionApi().addProject(projectData.value);
-            ElMessage.success('新增成功');
-            emit('update:show', false);
-            emit('saved'); // 通知父组件刷新
-            resetForm();
-          } catch (error) {
-            ElMessage.error('新增失败，请稍后重试');
-          }
+      try {
+        const valid = await projectDataRef.value.validate();
+        loading.value = true;
+        await useInspectionApi().addProject(projectData.value);
+        ElMessage.success('新增成功');
+        emit('update:show', false);
+        emit('saved');
+        resetForm();
+      } catch (error) {
+        if (error instanceof Error) {
+          ElMessage.error('新增失败，请稍后重试');
         }
-      });
+      } finally {
+        loading.value = false;
+      }
     };
+
 
     return {
       props,
@@ -90,7 +93,8 @@ export default {
       projectData,
       submitForm,
       rules,
-      projectDataRef
+      projectDataRef,
+      loading
     };
   }
 }
