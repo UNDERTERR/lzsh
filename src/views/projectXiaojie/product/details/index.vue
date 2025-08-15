@@ -68,6 +68,7 @@ export default {
         summaryList.value = res?.data?.records;
         total.value = res?.data?.total ?? 0;
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('加载列表失败', error);
       } finally {
         loading.value = false;
