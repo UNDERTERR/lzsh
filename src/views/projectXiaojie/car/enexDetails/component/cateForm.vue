@@ -36,72 +36,93 @@
     </el-form-item>
 
     <el-form-item class="form-button">
-      
+
       <el-button plain size="small" type="primary" @click="onSearch" style="margin-left: 1px;">分类查询</el-button>
       <el-button size="small" @click="onReset">重置</el-button>
     </el-form-item>
   </el-form>
 </template>
 
-<script setup lang="ts">
-import { reactive, watch} from 'vue'
-const props = defineProps<{
-  modelValue: FormData
-  enPlaceOptions: Option[]
-  exPlaceOptions: Option[]
-}>()
+<script lang="ts">
+import { reactive, watch } from 'vue';
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', val: FormData): void
-  (e: 'search', val: FormData): void
-}>()
+// interface Option {
+//   label: string;
+//   value: string;
+// }
 
-interface Option {
-  label: string
-  value: string
-}
+// interface FormData {
+//   vehicleType?: string;
+//   feeStatus?: string;
+//   enPlace?: string;
+//   exPlace?: string;
+//   exceptionFlag?: string;
+// }
 
-interface FormData {
-  vehicleType?: string
-  feeStatus?: string
-  enPlace?: string
-  exPlace?: string
-  exceptionFlag?: string
-}
+export default {
+  name: 'CateForm',
+  props: {
+    modelValue: {
+      // type: Object as () => FormData,
+      type: Object,
+      required: true
+    },
+    enPlaceOptions: {
+      type: Array as () => any[],
+      required: true
+    },
+    exPlaceOptions: {
+      type: Array as () => any[],
+      required: true
+    }
+  },
+  emits: ['update:modelValue', 'search'],
+  setup(props, { emit }) {
+    // 局部表单数据，初始化为传入的 modelValue
+    const localFormData = reactive<any>({ ...props.modelValue });
 
+    const onSearch = () => {
+      emit('search', { ...localFormData });
+    };
 
-// 局部表单数据，初始化为传入的 modelValue
-const localFormData = reactive<FormData>({ ...props.modelValue })
+    const onReset = () => {
+      Object.keys(localFormData).forEach((key) => {
+        // localFormData[key as keyof FormData] = undefined;
+        localFormData[key] = undefined;
+      });
+      emit('search', { ...localFormData }); // 重置后触发搜索
+    };
 
-const onSearch = () => {
-  emit('search', { ...localFormData })
-}
+    // 监听外部 modelValue 变化，同步到局部数据
+    watch(
+      () => props.modelValue,
+      (newVal) => {
+        Object.assign(localFormData, newVal);
+      }
+    );
 
-const onReset = () => {
-  Object.keys(localFormData).forEach((key) => {
-    localFormData[key as keyof FormData] = undefined
-  })
-  emit('search', { ...localFormData }) // 也可以重置后直接触发搜索
-}
-// 监听外部 modelValue 变化，同步到局部数据
-watch(
-  () => props.modelValue,
-  (newVal) => {
-    Object.assign(localFormData, newVal)
+    // 当局部数据变化时，向外触发更新事件，实现 v-model 双向绑定
+    watch(localFormData, (val) => {
+      emit('update:modelValue', { ...val });
+    });
+
+    return {
+      props,
+      localFormData,
+      onSearch,
+      onReset
+    };
   }
-)
-
-// 当局部数据变化时，向外触发更新事件，实现 v-model 双向绑定
-watch(localFormData, (val) => {
-  emit('update:modelValue', { ...val })
-})
+};
 </script>
+
 
 <style lang="scss" scoped>
 .category-filter-form {
-  .el-form-item { 
+  .el-form-item {
     margin-right: 0px;
   }
+
   .form-button {
     margin-left: 30px;
   }

@@ -1,6 +1,6 @@
 <template>
   <el-dialog v-model="props.show" title="确认删除" width="30%" :before-close="handleClose">
-    <div>你确定要删除 <b>{{ row?.billNo }}</b> 吗？</div>
+    <div>你确定要删除该数据吗？（数据库id为<b>{{ row?.id }}</b>）</div>
 
     <template #footer>
       <el-button @click="$emit('update:show', false)">取消</el-button>
@@ -12,10 +12,10 @@
 <script lang="ts">
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
-import { useCarApi } from '/@/api/projectXiaojie/car/index';
+import { useInspectionApi } from '/@/api/projectXiaojie/inspection/index';
 
 export default {
-  name: 'DeleteForm',
+  name: 'DeleteLocationForm',
   props: {
     show: {
       type: Boolean,
@@ -32,18 +32,15 @@ export default {
 
     // 关闭弹窗回调（阻止直接关闭时做处理）
     const handleClose = (done: Function) => {
-      if (loading.value) {
-        return;
-      }
-      done(); // 关闭动画执行
-      emit('update:show', false); // 告诉父组件隐藏弹窗
+      if (!loading.value) done();
+      emit('update:show', false);
     };
 
     // 删除操作
     const handleConfirm = async () => {
       loading.value = true;
       try {
-        await useCarApi().deleteCarDetail(props.row.billNo);
+        await useInspectionApi().deleteLocation(props.row.id);
         ElMessage.success('删除成功');
 
         emit('deleted', props.row);       // 通知父组件删除成功

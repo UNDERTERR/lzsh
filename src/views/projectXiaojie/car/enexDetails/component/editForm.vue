@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="visible" title="编辑车辆信息" width="600px" :before-close="handleClose">
+  <el-dialog v-model="props.show" title="编辑车辆信息" width="600px" :before-close="handleClose">
     <el-form :model="formData" ref="formRef" label-width="100px" :rules="rules">
       <el-form-item label="车牌号" prop="plateNumber" required>
         <el-input v-model="formData.plateNumber" maxlength="20" />
@@ -39,111 +39,127 @@
     </el-form>
 
     <template #footer>
-      <el-button @click="handleCancel">取消</el-button>
+      <el-button @click="$emit('update:show', false)">取消</el-button>
       <el-button type="primary" :loading="loading" @click="handleSave">保存</el-button>
     </template>
   </el-dialog>
 </template>
 
-<script setup lang="ts">
-import { ref, watch, reactive, toRefs, defineProps, defineEmits } from 'vue';
+<script lang="ts">
+import { ref, reactive, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useCarApi } from '/@/api/projectXiaojie/car';
-import { verifyPhone, verifyTelPhone } from '/@/utils/toolsValidate';
-interface VehicleForm {
-  billNo: string;
-  plateNumber: string;
-  vehicleType: string;
-  ownerName: string;
-  phoneNumber: string;
-  feeStatus: string;
-  exceptionFlag: string;
-}
+import { verifyPhone } from '/@/utils/toolsValidate';
 
-const props = defineProps<{
-  show: boolean;
-  row: VehicleForm;
-}>();
+// interface VehicleForm {
+//   billNo: string;
+//   plateNumber: string;
+//   vehicleType: string;
+//   ownerName: string;
+//   phoneNumber: string;
+//   feeStatus: string;
+//   exceptionFlag: string;
+// }
 
-const emit = defineEmits(['update:show', 'edited']);
-
-// 初始化表单数据，防止直接修改传入的props
-const formData = reactive<VehicleForm>({
-  billNo: '',
-  plateNumber: '',
-  vehicleType: '',
-  ownerName: '',
-  phoneNumber: '',
-  feeStatus: '',
-  exceptionFlag: ''
-});
-
-const rules = {
-  plateNumber: [{ required: true, message: '请输入车牌号', trigger: 'blur' }],
-  vehicleType: [{ required: true, message: '请选择车辆类型', trigger: 'change' }],
-  ownerName: [{ required: true, message: '请输入车主姓名', trigger: 'blur' }],
-  phoneNumber: [
-    {
-      validator: (rule: any, value: any, callback: any) => {
-        if (!value) {
-          // 可选项，没填直接通过
-          return callback();
-        }
-        if (!verifyPhone(value)) {
-          callback(new Error('请输入正确的联系方式'));
-        } else {
-          callback();
-        }
-      },
-      trigger: 'blur'
+export default {
+  name: 'EditCarForm',
+  props: {
+    show: {
+      type: Boolean,
+      required: true
+    },
+    row: {
+      // type: Object as () => VehicleForm,
+      type: Object,
+      required: true
     }
-  ]
-};
-const visible = ref(props.show);
-//保证存储成功后再关闭
-const loading = ref(false);
-const formRef = ref<FormInstance>();
-const handleCancel = () => {
-  visible.value = false;
-};
-
-const handleClose = (done: () => void) => {
-  if (!loading.value) done();
-};
-
-const handleSave = () => {
-  formRef.value?.validate(async (valid) => {
-    if (!valid) return;
-    loading.value = true;
-    try {
-      await useCarApi().updateCarDetail(props.row.billNo, formData);
-      // 保存成功后发事件给父组件
-      emit('edited', { ...formData });
-      visible.value = false;
-    } catch (error) {
-      // 处理错误
-      console.error(error);
-    } finally {
-      loading.value = false;
-    }
-  });
-};
-
-watch(() => props.show, (val) => {
-  visible.value = val;
-  if (val) {
-    Object.assign(formData, props.row || {
+  },
+  emits: ['update:show', 'edited'],
+  setup(props, { emit }) {
+    // 初始化表单数据，防止直接修改传入的props
+    const formData = reactive<any>({
+      billNo: '',
       plateNumber: '',
       vehicleType: '',
       ownerName: '',
       phoneNumber: '',
+      feeStatus: '',
+      exceptionFlag: ''
     });
-  }
-});
 
-watch(visible, (val) => {
-  emit('update:show', val);
-});
+    const rules = {
+      plateNumber: [{ required: true, message: '请输入车牌号', trigger: 'blur' }],
+      vehicleType: [{ required: true, message: '请选择车辆类型', trigger: 'change' }],
+      ownerName: [{ required: true, message: '请输入车主姓名', trigger: 'blur' }],
+      phoneNumber: [
+        {
+          validator: (rule: any, value: any, callback: any) => {
+            if (!value) return callback();
+            if (!verifyPhone(value)) {
+              callback(new Error('请输入正确的联系方式'));
+            } else {
+              callback();
+            }
+          },
+          trigger: 'blur'
+        }
+      ]
+    };
+
+    const loading = ref(false);
+    const formRef = ref<FormInstance>();
+
+    const handleClose = (done: Function) => {
+      if (loading.value) return;
+      done(); // 关闭动画执行
+      emit('update:show', false);
+    };
+
+    const handleSave = () => {
+      formRef.value?.validate(async (valid) => {
+        if (!valid) return;
+        loading.value = true;
+        try {
+          await useCarApi().updateCarDetail(props.row.billNo, formData);
+          emit('edited', { ...formData });
+          emit('update:show', false);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          loading.value = false;
+        }
+      });
+    };
+
+    watch(
+      () => props.show,
+      (val) => {
+        if (val) {
+          Object.assign(
+            formData,
+            props.row || {
+              plateNumber: '',
+              vehicleType: '',
+              ownerName: '',
+              phoneNumber: ''
+            }
+          );
+        }
+      }
+    );
+
+    return {
+      props,
+      formData,
+      rules,
+      loading,
+      formRef,
+      handleClose,
+      handleSave
+    };
+  }
+};
 </script>
+
 
 <style scoped></style>

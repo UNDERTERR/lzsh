@@ -1,0 +1,89 @@
+{
+    "code": 0,
+    "message": "success",
+    "data": {
+        "total": 39,
+        "records": [
+            {
+                "inspectionDate": "1991-06-28",
+                "inspector": "侯军",
+                "inspectionDays": 2,
+                "totalInspections": 17,
+                "abnormalIssues": 43,
+                "performanceScore": 84
+            },
+            {
+                "inspectionDate": "1976-12-08",
+                "inspector": "傅超",
+                "inspectionDays": 9,
+                "totalInspections": 45,
+                "abnormalIssues": 32,
+                "performanceScore": 183
+            },
+            {
+                "inspectionDate": "1994-04-19",
+                "inspector": "姜超",
+                "inspectionDays": 1,
+                "totalInspections": 1,
+                "abnormalIssues": 41,
+                "performanceScore": 154
+            },
+            {
+                "inspectionDate": "1999-12-18",
+                "inspector": "乔敏",
+                "inspectionDays": 7,
+                "totalInspections": 3,
+                "abnormalIssues": 36,
+                "performanceScore": 176
+            },
+            {
+                "inspectionDate": "1993-08-15",
+                "inspector": "吴秀英",
+                "inspectionDays": 2,
+                "totalInspections": 14,
+                "abnormalIssues": 19,
+                "performanceScore": 90
+            },
+            {
+                "inspectionDate": "1981-07-11",
+                "inspector": "石军",
+                "inspectionDays": 4,
+                "totalInspections": 39,
+                "abnormalIssues": 97,
+                "performanceScore": 198
+            },
+            {
+                "inspectionDate": "1992-09-19",
+                "inspector": "卢磊",
+                "inspectionDays": 8,
+                "totalInspections": 15,
+                "abnormalIssues": 39,
+                "performanceScore": 160
+            },
+            {
+                "inspectionDate": "1987-04-21",
+                "inspector": "尹霞",
+                "inspectionDays": 3,
+                "totalInspections": 10,
+                "abnormalIssues": 70,
+                "performanceScore": 137
+            },
+            {
+                "inspectionDate": "2018-03-09",
+                "inspector": "宋芳",
+                "inspectionDays": 5,
+                "totalInspections": 13,
+                "abnormalIssues": 11,
+                "performanceScore": 118
+            },
+            {
+                "inspectionDate": "1994-07-10",
+                "inspector": "于勇",
+                "inspectionDays": 5,
+                "totalInspections": 37,
+                "abnormalIssues": 9,
+                "performanceScore": 164
+            }
+        ]
+    }
+}
