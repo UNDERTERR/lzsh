@@ -62,7 +62,7 @@ import { reactive, watch } from 'vue';
 export default {
   name: 'CateForm',
   props: {
-    modelValue: {
+    cateForm: {
       // type: Object as () => FormData,
       type: Object,
       required: true
@@ -76,10 +76,10 @@ export default {
       required: true
     }
   },
-  emits: ['update:modelValue', 'search'],
+  emits: ['update:cateForm', 'search'],
   setup(props, { emit }) {
     // 局部表单数据，初始化为传入的 modelValue
-    const localFormData = reactive<any>({ ...props.modelValue });
+    const localFormData = reactive<any>({ ...props.cateForm });
 
     const onSearch = () => {
       emit('search', { ...localFormData });
@@ -95,7 +95,7 @@ export default {
 
     // 监听外部 modelValue 变化，同步到局部数据
     watch(
-      () => props.modelValue,
+      () => props.cateForm,
       (newVal) => {
         Object.assign(localFormData, newVal);
       }
@@ -103,7 +103,7 @@ export default {
 
     // 当局部数据变化时，向外触发更新事件，实现 v-model 双向绑定
     watch(localFormData, (val) => {
-      emit('update:modelValue', { ...val });
+      emit('update:cateForm', { ...val });
     });
 
     return {

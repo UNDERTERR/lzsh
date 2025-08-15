@@ -33,7 +33,7 @@
     <template #footer>
       <div style="display: flex; justify-content: flex-end; gap: 10px; padding-top: 10px; padding-right: 30px;">
         <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="submitForm">保存</el-button>
+        <el-button type="primary" @click="submitForm" :loading="loading">保存</el-button>
       </div>
     </template>
   </el-dialog>
@@ -64,6 +64,7 @@ export default {
   emits: ['update:show', 'saved'],
   setup(props, { emit }) {
     const formRef = ref();
+    const loading = ref(false);
     const form = ref<any>({
       billNo: '',
       plateNumber: '',
@@ -100,18 +101,22 @@ export default {
 
     const submitForm = async () => {
       formRef.value.validate(async (valid: boolean) => {
-        if (valid) {
-          try {
-            await useCarApi().addCarDetail(form.value);
-            ElMessage.success('新增成功');
-            emit('saved'); // 通知父组件刷新
-            handleClose(); // 只在成功时关闭
-          } catch (error) {
-            ElMessage.error('新增失败，请重试');
-          }
+        if (!valid) return; // 校验失败直接返回
+        loading.value = true; // 校验成功才开始 loading
+        try {
+          await useCarApi().addCarDetail(form.value);
+          ElMessage.success('新增成功');
+          emit('saved'); // 通知父组件刷新
+          handleClose(); // 关闭弹窗
+        } catch (error) {
+          ElMessage.error('新增失败，请重试');
+        } finally {
+          loading.value = false;
+          resetForm();
         }
       });
     };
+
 
 
     return {
@@ -121,7 +126,8 @@ export default {
       rules,
       handleClose,
       resetForm,
-      submitForm
+      submitForm,
+      loading
     };
   }
 };

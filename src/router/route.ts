@@ -170,21 +170,37 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
         children: [
           {
             path: '/car/enexDetails',
-            name: 'carEnexDetails',
+            name: 'enexDetails',
             component: () => import('/@/views/projectXiaojie/car/enexDetails/index.vue'),
             meta: {
-              title: 'message.router.carEnexDetails', // 对应“车辆进出场明细”
+              title: 'message.router.carEnexDetails',
+              isLink: '',
+              isHide: false,
+              isKeepAlive: true,
+              isAffix: false,
+              isIframe: false,
+              roles: ['admin','common'],
+              icon: 'ele-DocumentAdd',
+            },
+          },
+          {
+            path: '/car/operation',
+            name: 'operation',
+            component: () => import('/@/views/projectXiaojie/car/operation/index.vue'),
+            meta: {
+              title: 'message.router.carOperation',
               isLink: '',
               isHide: false,
               isKeepAlive: true,
               isAffix: false,
               isIframe: false,
               roles: ['admin'],
-              icon: 'ele-DocumentAdd',
+              icon: 'ele-WarningFilled',
             },
           },
         ],
       },
+      //巡检管理
       {
         path: '/inspection',
         name: 'inspection',
@@ -204,10 +220,10 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
           [
             {
               path: '/inspection/location',
-              name: 'inspection',
+              name: 'location',
               component: () => import('/@/views/projectXiaojie/inspection/location/index.vue'),
               meta: {
-                title: 'message.router.inspection_location', // 对应“车辆进出场明细”
+                title: 'message.router.inspection_location',
                 isLink: '',
                 isHide: false,
                 isKeepAlive: true,
@@ -222,13 +238,13 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
               name: 'record',
               component: () => import('/@/views/projectXiaojie/inspection/record/index.vue'),
               meta: {
-                title: 'message.router.inspection_record', // 对应“车辆进出场明细”
+                title: 'message.router.inspection_record',
                 isLink: '',
                 isHide: false,
                 isKeepAlive: true,
                 isAffix: false,
                 isIframe: false,
-                roles: ['admin'],
+                roles: ['admin','common'],
                 icon: 'ele-Document',
               },
             },
@@ -237,7 +253,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
               name: 'project',
               component: () => import('/@/views/projectXiaojie/inspection/project/index.vue'),
               meta: {
-                title: 'message.router.inspection_project', // 对应“车辆进出场明细”
+                title: 'message.router.inspection_project',
                 isLink: '',
                 isHide: false,
                 isKeepAlive: true,
@@ -252,7 +268,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
               name: 'performance',
               component: () => import('/@/views/projectXiaojie/inspection/performance/index.vue'),
               meta: {
-                title: 'message.router.inspection_performance', // 对应“车辆进出场明细”
+                title: 'message.router.inspection_performance',
                 isLink: '',
                 isHide: false,
                 isKeepAlive: true,
@@ -265,6 +281,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 
           ],
       },
+      //产品管理
       {
         path: '/product',
         name: 'product',
@@ -286,7 +303,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
             name: 'productDetails',
             component: () => import('/@/views/projectXiaojie/product/details/index.vue'),
             meta: {
-              title: 'message.router.product_details', // 对应“车辆进出场明细”
+              title: 'message.router.product_details',
               isLink: '',
               isHide: false,
               isKeepAlive: true,

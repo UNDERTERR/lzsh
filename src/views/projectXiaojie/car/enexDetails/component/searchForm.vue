@@ -30,14 +30,14 @@
 
     <template #footer>
       <el-button @click="$emit('update:show', false)">取消</el-button>
-      <el-button type="primary" :loading="props.loading" @click="handleSearch">查询</el-button>
+      <el-button type="primary" @click="handleSearch">查询</el-button>
     </template>
   </el-dialog>
 
 </template>
 
 <script lang="ts">
-import { reactive } from 'vue';
+import { reactive ,ref} from 'vue';
 
 // interface FormData {
 //   billNo: string;      // 单据
@@ -55,10 +55,6 @@ export default {
       type: Boolean,
       required: true
     },
-    loading: {
-      type: Boolean,
-      default: false
-    }
   },
   emits: ['update:show', 'search'],
   setup(props, { emit }) {
@@ -87,7 +83,7 @@ export default {
       props,
       formData,
       handleSearch,
-      handleClose
+      handleClose,
     };
   }
 };

@@ -1,0 +1,174 @@
+{
+    "code": 0,
+    "message": "success",
+    "data": {
+        "total": 45,
+        "records": [
+            {
+                "billNo": "K96049",
+                "plateNumber": "甘A44370",
+                "vehicleType": "6.8米货车",
+                "entryTime": "1995-03-22 02:42:40",
+                "grossWeight": 9.35,
+                "entryFee": 1.37,
+                "paymentMethod": "扫码支付",
+                "cashier": "夏艳",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "Z13261",
+                "plateNumber": "甘A58773",
+                "vehicleType": "6.8米货车",
+                "entryTime": "2024-09-29 08:42:59",
+                "grossWeight": 25.68,
+                "entryFee": 6.62,
+                "paymentMethod": "现金支付",
+                "cashier": "汪敏",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "U77401",
+                "plateNumber": "甘A72715",
+                "vehicleType": "单排货车",
+                "entryTime": "2000-07-30 13:22:27",
+                "grossWeight": 43.17,
+                "entryFee": 15.83,
+                "paymentMethod": "扫码支付",
+                "cashier": "汤芳",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "T42399",
+                "plateNumber": "甘A84897",
+                "vehicleType": "双排货车",
+                "entryTime": "1988-01-23 05:49:40",
+                "grossWeight": 21.51,
+                "entryFee": 38.82,
+                "paymentMethod": "扫码支付",
+                "cashier": "毛涛",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "C92367",
+                "plateNumber": "甘A51043",
+                "vehicleType": "单排货车",
+                "entryTime": "1998-12-23 02:49:21",
+                "grossWeight": 12.15,
+                "entryFee": 20.95,
+                "paymentMethod": "扫码支付",
+                "cashier": "刘秀英",
+                "exitStatus": "已出场"
+            },
+            {
+                "billNo": "Y82311",
+                "plateNumber": "甘A18800",
+                "vehicleType": "4.2米货车",
+                "entryTime": "1976-04-19 14:11:48",
+                "grossWeight": 47.66,
+                "entryFee": 18.85,
+                "paymentMethod": "现金支付",
+                "cashier": "蒋磊",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "V81418",
+                "plateNumber": "甘A75592",
+                "vehicleType": "单排货车",
+                "entryTime": "2016-11-07 08:20:56",
+                "grossWeight": 19.72,
+                "entryFee": 43.64,
+                "paymentMethod": "扫码支付",
+                "cashier": "方娜",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "G75016",
+                "plateNumber": "甘A50388",
+                "vehicleType": "单排货车",
+                "entryTime": "1998-04-01 09:07:52",
+                "grossWeight": 46.32,
+                "entryFee": 15.74,
+                "paymentMethod": "现金支付",
+                "cashier": "雷军",
+                "exitStatus": "已出场"
+            },
+            {
+                "billNo": "J75489",
+                "plateNumber": "甘A16591",
+                "vehicleType": "单排货车",
+                "entryTime": "2016-08-24 15:29:29",
+                "grossWeight": 47.42,
+                "entryFee": 28.36,
+                "paymentMethod": "扫码支付",
+                "cashier": "康强",
+                "exitStatus": "已出场"
+            },
+            {
+                "billNo": "R22290",
+                "plateNumber": "甘A64587",
+                "vehicleType": "双排货车",
+                "entryTime": "1997-12-26 05:37:52",
+                "grossWeight": 37.28,
+                "entryFee": 32.04,
+                "paymentMethod": "扫码支付",
+                "cashier": "张敏",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "F68519",
+                "plateNumber": "甘A83913",
+                "vehicleType": "6.8米货车",
+                "entryTime": "1990-12-01 00:53:16",
+                "grossWeight": 2.55,
+                "entryFee": 34.02,
+                "paymentMethod": "现金支付",
+                "cashier": "钱磊",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "Q11994",
+                "plateNumber": "甘A62948",
+                "vehicleType": "9.6米货车",
+                "entryTime": "1983-07-29 09:29:36",
+                "grossWeight": 21.62,
+                "entryFee": 17.25,
+                "paymentMethod": "现金支付",
+                "cashier": "姜洋",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "P21539",
+                "plateNumber": "甘A60641",
+                "vehicleType": "4.2米货车",
+                "entryTime": "1983-11-22 08:40:36",
+                "grossWeight": 15.89,
+                "entryFee": 3.35,
+                "paymentMethod": "扫码支付",
+                "cashier": "黎磊",
+                "exitStatus": "未出场"
+            },
+            {
+                "billNo": "J71056",
+                "plateNumber": "甘A37791",
+                "vehicleType": "双排货车",
+                "entryTime": "2010-02-27 12:37:54",
+                "grossWeight": 46.17,
+                "entryFee": 16.77,
+                "paymentMethod": "扫码支付",
+                "cashier": "丁磊",
+                "exitStatus": "已出场"
+            },
+            {
+                "billNo": "V79405",
+                "plateNumber": "甘A84558",
+                "vehicleType": "4.2米货车",
+                "entryTime": "2017-10-16 06:24:53",
+                "grossWeight": 44.57,
+                "entryFee": 42.67,
+                "paymentMethod": "现金支付",
+                "cashier": "郝洋",
+                "exitStatus": "未出场"
+            }
+        ]
+    }
+}

@@ -2,7 +2,7 @@
   <div class="project">
 
     <el-button type="primary" plain style="margin-bottom: 20px;" @click="showPerformanceForm=true">设置绩效规则</el-button>
-    <el-table :data="projectList" border class="table">
+    <el-table :data="projectList" border class="table" :loading="loading">
       <el-table-column align="center" prop="cate" label="所属类别" width="488" />
       <el-table-column align="center" prop="quantity" label="设置项目数" width="500" />
       <el-table-column align="center" prop="operation" label="操作" width="250">
@@ -70,7 +70,8 @@ export default {
       showProjectForm,
       handleSet,
       showPerformanceForm,
-      handlePerformance
+      handlePerformance,
+      loading 
     }
   }
 }

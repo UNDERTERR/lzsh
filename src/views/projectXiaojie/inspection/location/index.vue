@@ -16,10 +16,10 @@
         </el-icon>
         添加
       </el-button>
-      
+
     </div>
     <!-- 表格 -->
-    <el-table  :data="tableData" border class="table">
+    <el-table :data="tableData" border class="table" :loading="loading">
       <el-table-column align="center" prop="locationName" label="位置名称" width="480" />
       <el-table-column align="center" prop="locationCate" label="位置类别" width="480" />
       <el-table-column align="center" prop="operation" label="操作" width="290">
@@ -57,91 +57,138 @@
 </template>
 
 
-<script setup lang="ts">
-import { ref,onMounted } from 'vue'
+<script lang="ts">
+import { ref, onMounted } from 'vue'
 import { useInspectionApi } from '/@/api/projectXiaojie/inspection';
 import { Edit, Delete, Plus, Search } from '@element-plus/icons-vue'
-import DeleteForm from './component/deleteForm.vue'
-import EditForm from './component/editForm.vue'
+import { ElMessageBox, ElMessage } from 'element-plus';
 import AddForm from './component/addForm.vue';
 // interface Location {
 //   id: string,
 //   locationName?: string,
 //   locationCate?: string
 // }
-const searchParams = ref<Record<string, any>>({})
-const tableData = ref<any[]>([])
-/**
- * 分页
- */
-const page = ref(1)
-const total = ref<number>(0)
-const loading = ref(false)
-const size = ref<number>(10)
-const loadList = async (params?: Record<string, any>) => {
-  loading.value = true
-  try {
-    const res = await useInspectionApi().getLocationList(page.value, size.value, params || searchParams.value)
-    tableData.value = res?.data?.records ?? []
-    total.value = res?.data?.total ?? 0
-  } catch (error) {
-    console.error('加载列表失败', error)
-  } finally {
-    loading.value = false
-  }
-}
+export default {
+  name: 'Location',
+  components: { AddForm, Search, Plus, Delete, Edit },
+  setup() {
+    const searchParams = ref<Record<string, any>>({})
+    const tableData = ref<any[]>([])
+    /**
+     * 分页
+     */
+    const page = ref(1)
+    const total = ref<number>(0)
+    const loading = ref(false)
+    const size = ref<number>(10)
+    const loadList = async (params?: Record<string, any>) => {
+      loading.value = true
+      try {
+        const res = await useInspectionApi().getLocationList(page.value, size.value, params || searchParams.value)
+        tableData.value = res?.data?.records ?? []
+        total.value = res?.data?.total ?? 0
+      } catch (error) {
+        console.error('加载列表失败', error)
+      } finally {
+        loading.value = false
+      }
+    }
 
-const handlePageChange = (val: number) => {
-  page.value = val
-  loadList()
-}
-onMounted(loadList)
-/**
- * 搜索 
- */
-const inputValue = ref('')
-const handleSearch = () => {
-  page.value = 1
-  const params = {
-    locationName: inputValue.value.trim()
-  }
-  searchParams.value = params
-  loadList(params)
-}
-/**
- * 添加
- */
-const addRow = ref<any>()
-const showAddDialogVisible = ref(false)
-const handleAdd = (row:any) => {
-  addRow.value = row
-  showAddDialogVisible.value = true
-}
-/**
- * 删除
- */
-const showDeleteDialogVisible = ref(false)
-const deleteRow = ref<any>()
+    const handlePageChange = (val: number) => {
+      page.value = val
+      loadList()
+    }
+    onMounted(loadList)
+    /**
+     * 搜索 
+     */
+    const inputValue = ref('')
+    const handleSearch = () => {
+      page.value = 1
+      const params = {
+        locationName: inputValue.value.trim()
+      }
+      searchParams.value = params
+      loadList(params)
+    }
+    /**
+     * 添加
+     */
+    const addRow = ref<any>()
+    const showAddDialogVisible = ref(false)
+    const handleAdd = (row: any) => {
+      addRow.value = row
+      showAddDialogVisible.value = true
+    }
+    /**
+     * 删除
+     */
+    const showDeleteDialogVisible = ref(false)
+    const deleteRow = ref<any>()
 
-const handleDelete = (row: any) => {
-  deleteRow.value = row
-  showDeleteDialogVisible.value = true;
-}
-/**
- * 编辑
- */
-const editRow = ref<any>()
-const showEditDialogVisible = ref(false)
+    const handleDelete = (row: any) => {
+      ElMessageBox.confirm(
+        `你确定要删除位置 <b>${row.locationName}</b> 吗？`,
+        '删除确认',
+        {
+          type: 'warning',
+          dangerouslyUseHTMLString: true,
+        }
+      ).then(async () => {
+        row.loading = true;
+        try {
+          await useInspectionApi().deleteLocation(row.id); // 调用接口删除
+          // 局部删除表格行
+          tableData.value = tableData.value.filter(item => item.id !== row.id);
+          total.value -= 1; // 更新总数
+          ElMessage.success('删除成功');
+        } catch (error) {
+          ElMessage.error('删除失败，请稍后重试');
+        } finally {
+          row.loading = false;
+        }
+      }).catch(() => {
+        ElMessage.info('已取消删除');
+      });
+    };
+    /**
+     * 编辑
+     */
+    const editRow = ref<any>()
+    const showEditDialogVisible = ref(false)
 
-const handleEdit = (row: any) => {
-  editRow.value = row
-  showEditDialogVisible.value = true;
-}
-const update = (updateData: any) => {
-  const idx = tableData.value.findIndex(item => item.id === updateData.id)
-  if (idx !== -1) {
-    tableData.value[idx] = updateData
+    const handleEdit = (row: any) => {
+      editRow.value = row
+      showEditDialogVisible.value = true;
+    }
+    const update = (updateData: any) => {
+      const idx = tableData.value.findIndex(item => item.id === updateData.id)
+      if (idx !== -1) {
+        tableData.value[idx] = updateData
+      }
+    }
+    return {
+      tableData,
+      showAddDialogVisible,
+      showDeleteDialogVisible,
+      showEditDialogVisible,
+      handleDelete,
+      handleEdit,
+      handleSearch,
+      inputValue,
+      update,
+      handleAdd,
+      page,
+      size,
+      total,
+      handlePageChange,
+      deleteRow,
+      editRow,
+      loadList,
+      loading
+    }
   }
+
 }
 </script>
 
