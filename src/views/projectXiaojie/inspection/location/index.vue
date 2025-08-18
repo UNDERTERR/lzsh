@@ -50,7 +50,6 @@
     <el-dialog>
 
     </el-dialog>
-    <DeleteForm v-model:show="showDeleteDialogVisible" :row="deleteRow" @deleted="loadList" />
     <EditForm v-model:show="showEditDialogVisible" :row="editRow" @edited="update" />
     <AddForm v-model:show="showAddDialogVisible" @added="loadList" />
   </div>
@@ -63,6 +62,7 @@ import { useInspectionApi } from '/@/api/projectXiaojie/inspection';
 import { Edit, Delete, Plus, Search } from '@element-plus/icons-vue'
 import { ElMessageBox, ElMessage } from 'element-plus';
 import AddForm from './component/addForm.vue';
+import EditForm from './component/editForm.vue';
 // interface Location {
 //   id: string,
 //   locationName?: string,
@@ -70,7 +70,7 @@ import AddForm from './component/addForm.vue';
 // }
 export default {
   name: 'Location',
-  components: { AddForm, Search, Plus, Delete, Edit },
+  components: { AddForm, Search, Plus, Delete, Edit,EditForm },
   setup() {
     const searchParams = ref<Record<string, any>>({})
     const tableData = ref<any[]>([])

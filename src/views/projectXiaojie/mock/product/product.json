@@ -1,0 +1,159 @@
+{
+    "code": 0,
+    "message": "success",
+    "data": {
+        "total": 34,
+        "records": [
+            {
+                "id": 1,
+                "date": "2020-07-12",
+                "productName": "西红柿",
+                "productType": "水果",
+                "productPrice": 8.2,
+                "productSize": "大",
+                "productLocation": "台湾 高雄市",
+                "remark": "直往色你老造。"
+            },
+            {
+                "id": 2,
+                "date": "1983-01-31",
+                "productName": "白菜",
+                "productType": "水果",
+                "productPrice": 12.52,
+                "productSize": "小",
+                "productLocation": "甘肃省 金昌市",
+                "remark": "参前得道有利真办状信论提感。"
+            },
+            {
+                "id": 3,
+                "date": "1985-09-21",
+                "productName": "洋芋",
+                "productType": "蔬菜",
+                "productPrice": 4.24,
+                "productSize": "中",
+                "productLocation": "海南省 海口市",
+                "remark": "头世是步件果做议标。"
+            },
+            {
+                "id": 4,
+                "date": "2007-06-22",
+                "productName": "白菜",
+                "productType": "蔬菜",
+                "productPrice": 2.3,
+                "productSize": "中",
+                "productLocation": "西藏自治区 昌都地区",
+                "remark": "非最省么做看离题别具求团价无关。"
+            },
+            {
+                "id": 5,
+                "date": "1984-11-25",
+                "productName": "白菜",
+                "productType": "水果",
+                "productPrice": 11.87,
+                "productSize": "中",
+                "productLocation": "内蒙古自治区 通辽市",
+                "remark": "最响然积来火交。"
+            },
+            {
+                "id": 6,
+                "date": "2008-04-05",
+                "productName": "红薯",
+                "productType": "水果",
+                "productPrice": 9.4,
+                "productSize": "中",
+                "productLocation": "澳门特别行政区 澳门半岛",
+                "remark": "各机织究律向必应酸安头。"
+            },
+            {
+                "id": 7,
+                "date": "2016-11-02",
+                "productName": "茄子",
+                "productType": "水果",
+                "productPrice": 6.43,
+                "productSize": "大",
+                "productLocation": "西藏自治区 林芝地区",
+                "remark": "见周计分天都况日老气。"
+            },
+            {
+                "id": 8,
+                "date": "1974-12-23",
+                "productName": "西红柿",
+                "productType": "水果",
+                "productPrice": 6.5,
+                "productSize": "大",
+                "productLocation": "江西省 南昌市",
+                "remark": "队发速好义连标给器或精。"
+            },
+            {
+                "id": 9,
+                "date": "2006-11-16",
+                "productName": "白菜",
+                "productType": "蔬菜",
+                "productPrice": 10.77,
+                "productSize": "大",
+                "productLocation": "天津 天津市",
+                "remark": "天京多周情实了众。"
+            },
+            {
+                "id": 10,
+                "date": "2009-07-11",
+                "productName": "西红柿",
+                "productType": "水果",
+                "productPrice": 10.5,
+                "productSize": "大",
+                "productLocation": "广东省 潮州市",
+                "remark": "情半数流路式。"
+            },
+            {
+                "id": 11,
+                "date": "2006-08-05",
+                "productName": "西葫芦",
+                "productType": "水果",
+                "productPrice": 8.6,
+                "productSize": "中",
+                "productLocation": "河北省 唐山市",
+                "remark": "只然他党布白院集切来加太不最。"
+            },
+            {
+                "id": 12,
+                "date": "1998-02-28",
+                "productName": "小番茄",
+                "productType": "蔬菜",
+                "productPrice": 6.72,
+                "productSize": "小",
+                "productLocation": "安徽省 池州市",
+                "remark": "如比者美料结满主党。"
+            },
+            {
+                "id": 13,
+                "date": "2013-07-20",
+                "productName": "青菜",
+                "productType": "水果",
+                "productPrice": 9.02,
+                "productSize": "中",
+                "productLocation": "山东省 烟台市",
+                "remark": "别给变快研者。"
+            },
+            {
+                "id": 14,
+                "date": "2014-07-03",
+                "productName": "西红柿",
+                "productType": "水果",
+                "productPrice": 5.3,
+                "productSize": "大",
+                "productLocation": "海南省 三沙市",
+                "remark": "据得层究记。"
+            },
+            {
+                "id": 15,
+                "date": "2020-07-09",
+                "productName": "小番茄",
+                "productType": "水果",
+                "productPrice": 14.56,
+                "productSize": "中",
+                "productLocation": "内蒙古自治区 巴彦淖尔市",
+                "remark": "六家且科率没七直发局给。"
+            }
+        ]
+    }
+}

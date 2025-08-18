@@ -24,15 +24,15 @@
 
       <el-form-item label="收费状态">
         <el-select v-model="formData.feeStatus" placeholder="请选择收费状态" clearable>
-          <el-option label="已缴费" value="paid" />
-          <el-option label="未缴费" value="unpaid" />
-          <el-option label="免费" value="free" />
+          <el-option label="已缴费" value="已缴费" />
+          <el-option label="未缴费" value="未缴费" />
+          <el-option label="免费" value="免费" />
         </el-select>
       </el-form-item>
       <el-form-item label="异常标记">
         <el-select v-model="formData.exceptionFlag" placeholder="是否异常" clearable>
-          <el-option label="正常" value="normal" />
-          <el-option label="超时" value="exception" />
+          <el-option label="正常" value="正常" />
+          <el-option label="超时" value="超时" />
         </el-select>
       </el-form-item>
 
